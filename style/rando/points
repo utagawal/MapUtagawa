@@ -1,0 +1,28 @@
+place=city & population>200000 {name "${name:fr}" | "${name}"} [0x0700 resolution 17]
+place=city {name "${name:fr}" | "${name}"} [0x0800 resolution 18]
+place=town {name "${name:fr}" | "${name}"} [0x0800 resolution 19]
+place=village {name "${name:fr}" | "${name}"} [0x00900 resolution 20]
+place=hamlet {name "${name:fr}" | "${name}"} [0x00d00 resolution 21]
+
+
+natural=peak & ele>=4000 {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06616 resolution 18]
+natural=peak & ele>=3000 {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06616 resolution 19]
+natural=peak {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06616 resolution 20]
+natural=saddle {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06701 resolution 23]
+mountain_pass=yes {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06617 resolution 23]
+building=church | building=cathedral [0x02c0b resolution 23]
+amenity=drinking_water [0x06414 resolution 24]
+amenity=parking & (access ~ '(yes|customers|permissive)' | access!=*) & (parking=surface | parking!=*) [0x02f0b resolution 23]
+amenity=toilets & (fee=no | fee!=*) [0x11516 resolution 24]
+natural=spring [0x6511 resolution 24]
+tourism=picnic_site [0x11517 resolution 24]
+sport=climbing & (outdoor=yes | outdoor!=*) [0x11515 resolution 23] 
+tourism=viewpoint [0x05200 resolution 24] 
+natural=cave_entrance [0x06602 resolution 24]
+amenity=shelter & (shelter_type=basic_hut) [0x11519 resolution 22]
+tourism=alpine_hut {name "${name:fr}" | "${name}"} [0x11518 resolution 22]
+tourism=wilderness_hut {name "${name:fr}" | "${name}"} [0x11519 resolution 22]
+natural=water {name "${name:fr}" | "${name}"} [0x1151a resolution 22] 
+natural=glacier {name "${name:fr}" | "${name}"} [0x1151a resolution 22] 
+
+

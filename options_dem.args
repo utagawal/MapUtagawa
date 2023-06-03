@@ -1,0 +1,7 @@
+max-jobs: 8
+remove-short-arcs
+style-file=../style/utagawa
+latin1
+transparent
+
+

@@ -1,0 +1,12 @@
+place=city & population>200000 {name "${name}"} [0x0700 resolution 17]
+place=city {name "${name}"} [0x0800 resolution 18]
+place=town {name "${name}"} [0x0800 resolution 19]
+place=village {name "${name}"} [0x00900 resolution 20]
+
+
+amenity=drinking_water [0x06414 resolution 24]
+amenity=toilets & (fee=no | fee!=*) [0x11516 resolution 24]
+tourism=viewpoint [0x05200 resolution 24] 
+
+
+

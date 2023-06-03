@@ -1,0 +1,69 @@
+# CHEMIN
+type=route & route ~ '(foot|hiking)' & via_ferrata_scale!=*  
+{ apply
+	{
+    	add c_route_hiking = yes;
+	}
+}
+
+# CHEMIN MTB
+type=route & route ~ '(mtb)' & via_ferrata_scale!=*  
+{ apply
+	{
+    	add c_route_mtb = yes;
+	}
+}
+
+# PR
+type=route & route ~ '(foot|hiking)' & network=lwn & via_ferrata_scale!=*  & osmc:symbol ~ 'yellow:white:yellow_bar.*' 
+{ apply
+	{
+		set osmc:symbol='$(osmc:symbol)';
+		set network='${network}';
+    	add c_route_pr = yes;
+	}
+}
+
+#GRP
+if (name ~ '[GgRr].*') then
+	type=route & route ~ '(foot|hiking)' & network ~ '(iwn|nwn|rwn)'  & via_ferrata_scale!=*  & osmc:symbol ~ 'red:yellow:red_lower.*'
+	{ apply
+		{
+			set osmc:symbol='${osmc:symbol}';
+			set network='${network}';
+			add c_route_grp = yes;
+			set GRP='$(GR) - $(GRP) - ${name}'|
+			'$(GR) - ${name}'|
+			'$(GRP) - ${name}'|
+			'${name}';
+		}
+	}
+else
+	type=route & route ~ '(foot|hiking)' & network ~ '(iwn|nwn|rwn)'  & via_ferrata_scale!=*  & osmc:symbol ~ 'red:yellow:red_lower.*'
+	{ apply
+		{
+			set osmc:symbol='${osmc:symbol}';
+			set network='${network}';
+			add c_route_grp = yes;
+			set GRP='$(GR) - $(GRP) - GRP ${name}'|
+			'$(GR) - GRP ${name}'|
+			'$(GRP) - GRP ${name}'|
+			'GRP ${name}';
+		}
+	}
+end
+
+#GR
+type=route & route ~ '(foot|hiking)' & network ~ '(iwn|nwn|rwn)' & via_ferrata_scale!=* & osmc:symbol ~ 'red:white:red_lower:[0-9]+:.*'
+{ apply
+	{
+		set osmc:symbol='${osmc:symbol}';
+		set network='$(network)';
+		set c_route_gr = yes;
+		set GR='$(GR) - GR ${osmc:symbol|subst:":=>#"|part:"#:4"} - $(GRP)'|
+		'$(GR) - GR ${osmc:symbol|subst:":=>#"|part:"#:4"}'|
+		'GR ${osmc:symbol|subst:":=>#"|part:"#:4"} - $(GRP)'|
+		'GR ${osmc:symbol|subst:":=>#"|part:"#:4"}';
+	}
+}
+

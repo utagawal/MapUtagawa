@@ -1,0 +1,82 @@
+
+# 0x04
+landuse=military [0x04 resolution 22 continue]
+
+# 0x32
+natural=sea [0x32 resolution 17]
+place=sea [0x32 resolution 17]
+
+# 0x03f
+waterway=riverbank  [0x03f resolution 17]
+waterway=river [0x03f resolution 20]
+water=stream [0x03f resolution 24]
+natural=water & area_size()>160000 [0x03f resolution 17]
+natural=water & area_size()>50000 [0x03f resolution 18]
+natural=water & area_size()>16000 [0x03f resolution 19]
+natural=water & area_size()>8000 [0x03f resolution 20]
+natural=water [0x03f resolution 22]
+water=river & width>200 [0x03f resolution 18]
+water=river & (width<200 | width!=*) [0x03f resolution 19]
+landuse=reservoir|landuse=basin [0x03f resolution 24 ]
+
+# 0x4d
+natural=glacier [0x4d resolution 21]
+
+# 0x51
+natural=wetland [0x51 resolution 22]
+
+# 0x53
+surface=sand [0x53 resolution 22]
+natural=beach [0x53 resolution 23]
+
+# 0x11001
+landuse=forest [0x11001 resolution 20]
+natural=wood [0x11001 resolution 20]
+natural=scrub [0x11001 resolution 23]
+leisure=park & area_size()>500 [0x11001 resolution 22]
+
+# 0x11010
+landuse=salt_pond [0x11010 resolution 24]
+
+# 0x11013
+natural=bare_rock [0x11013 resolution 22]
+
+# 0x11014
+surface ~ '(pebblestone|gravel|fine_gravel)' [0x11014 resolution 22]
+
+# 0x11017
+wetland=mangrove [0x11017 resolution 23]
+
+
+# 0x11019
+waterway=lock_gate [0x11019 resolution 24]
+
+# 0x1101a
+waterway=dam [0x1101a resolution 24]
+
+# 0x1101b
+landuse=military [0x1101b resolution 22]
+
+# 0x1101d
+landuse=port [0x1101d resolution 24]
+
+# 0x1101e
+natural=scree [0x1101e resolution 22]
+
+#0x11103
+landuse=quarry [0x11103 resolution 24]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+France;02;utagawa;https://download.geofabrik.de/europe/france-latest.osm.pbf
+#Rhone-Alpes;01;utagawa;https://download.geofabrik.de/europe/france/rhone-alpes-latest.osm.pbf
+Suisse;03;utagawa;https://download.geofabrik.de/europe/switzerland-latest.osm.pbf
+Italie;04;utagawa;https://download.geofabrik.de/europe/italy-latest.osm.pbf
+Belgique;05;utagawa;https://download.geofabrik.de/europe/belgium-latest.osm.pbf
+Espagne;06;utagawa;https://download.geofabrik.de/europe/spain-latest.osm.pbf
+#Reunion;07;utagawa;https://download.geofabrik.de/europe/france/reunion-latest.osm.pbf

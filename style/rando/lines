@@ -1,0 +1,227 @@
+trail_visibility ~ '(no|horrible|bad)' { add c_visibility=horrible}
+trail_visibility ~ '(intermediate)' | (width<=1 & trail_visibility!=*) | (width<=0.5) { add c_visibility=intermediate}
+access ~ '(private|no)' & (foot=no | foot!=*) & (bicycle=no | bicycle!=*) { add c_access=no}
+tracktype ~ 'grade[1-2]' | smoothness ~ '(excellent|good)'  { add c_smoothness=good}
+tracktype ~ 'grade[3-4]' | smoothness ~ '(intermediate|bad|very_bad)'  { add c_smoothness=intermediate}
+
+# 0x10f01
+##sentiers GR
+highway=* & c_route_gr=yes {name '${GR}'} [0x10f01 resolution 20 continue]
+## sentiers GRP
+highway=* & c_route_grp=yes {name '${GRP}'} [0x10f01 resolution 20 continue]
+## sentiers balises (PR)
+highway=* & c_route_pr=yes & (c_route_gr =no | c_route_gr!=*) & (c_route_grp =no | c_route_grp!=*) [0x10f02 resolution 22 continue]
+## sentiers balises 
+highway=* & ( c_route_hiking=yes | trailblazed=yes ) & (c_route_gr =no | c_route_gr!=*) & (c_route_grp =no | c_route_grp!=*) [0x10f02 resolution 22 continue]
+
+# 0x10f04 sentiers balises VTT
+highway=* & c_route_mtb=yes & (c_route_hiking=no | c_route_hiking!=*) [0x10f04 resolution 22 continue]
+
+# 0x0d
+highway=* & tunnel=yes & length()>20 [0x0d resolution 24]
+highway=motorway & tunnel=yes & length()>20 [0x0d road_class=4 road_speed=7 resolution 24]
+highway=motorway_link & tunnel=yes & length()>20 [0x0d road_class=4 road_speed=6 resolution 24]
+highway=trunk & tunnel=yes & length()>20 [0x0d road_class=4 road_speed=6 resolution 24]
+highway=trunk_link & tunnel=yes & length()>20 [0x0d road_class=4 road_speed=5 resolution 24]
+highway=primary & tunnel=yes & length()>20 [0x0d road_class=3 road_speed=5 resolution 24]
+highway=primary_link & tunnel=yes & length()>20 [0x0d road_class=3 road_speed=5 resolution 24]
+highway=secondary & tunnel=yes & length()>20 [0x0d road_class=2 road_speed=4 resolution 24]
+highway=secondary_link & tunnel=yes & length()>20 [0x0d road_class=2 road_speed=3 resolution 24]
+highway=tertiary & tunnel=yes & length()>20 [0x0d road_class=2 road_speed=3 resolution 24]
+highway=tertiary_link & tunnel=yes & length()>20 [0x0d road_class=2 road_speed=2 resolution 24]
+highway=unclassified & tunnel=yes & length()>20 [0x0d road_class=0 road_speed=2 resolution 24]
+highway=residential & tunnel=yes & length()>20 [0x0d road_class=0 road_speed=2 resolution 24]
+
+# 0x01
+highway=motorway [0x01 road_class=4 road_speed=7 resolution 17]
+highway=motorway_link [0x01 road_class=4 road_speed=6 resolution 20]
+
+# 0x02
+highway=trunk [0x02 road_class=4 road_speed=6 resolution 20]
+
+# 0x03
+highway=primary & lanes>=3 & oneway=yes [0x03 road_class=3 road_speed=6 resolution 20]
+highway=primary_link & lanes>=2 & oneway=yes [0x03 road_class=3 road_speed=6 resolution 20]
+highway=trunk_link [0x03 road_class=3 road_speed=6 resolution 20]
+highway=primary [0x03 road_class=3 road_speed=5 resolution 20]
+highway=primary_link [0x03 road_class=3 road_speed=5 resolution 20]
+
+# 0x05
+highway=secondary [0x05 road_class=2 road_speed=4 resolution 21]
+highway=secondary_link [0x05 road_class=2 road_speed=4 resolution 21]
+
+# 0x06
+highway=tertiary [0x06 road_class=2 road_speed=4 resolution 22]
+highway=tertiary_link [0x06 road_class=2 road_speed=4 resolution 22]
+
+
+# 0x10f1b Chemin de service ou residence prive
+highway=residential & c_access=no [0x10f1b resolution 24]
+highway=unclassified & c_access=no [0x10f1b resolution 24]
+highway=service & c_access=no [0x10f1b resolution 24]
+highway=living_street & c_access=no [0x10f1b resolution 24]
+
+# 0x07
+highway=residential [0x07 road_class=2 road_speed=4 resolution 22]
+highway=unclassified [0x07 road_class=2 road_speed=4 resolution 22]
+highway=service [0x07 road_class=2 road_speed=2 resolution 22]
+highway=living_street [0x07 road_class=2 road_speed=2 resolution 22]
+
+# Chemin exploitation carossable prive
+highway=track & c_smoothness=good & c_access=no  [0x10f1f resolution 24 continue]
+highway=track & c_smoothness=good & c_access=no  [0x10f16 resolution 24 continue]
+highway=track & c_smoothness=good & c_access=no  [0x10f12 resolution 24]
+
+# Chemin exploitation carossable 
+highway=track & c_smoothness=good [0x10f1f road_class=0 road_speed=1 resolution 22 continue]
+highway=track & c_smoothness=good [0x10f17 road_class=0 road_speed=1 resolution 22 continue]
+highway=track & c_smoothness=good [0x10f12 road_class=0 road_speed=1 resolution 22]
+
+# Chemin exploitation moindre carossable prive
+highway=track & ( c_smoothness=intermediate | width>=2 ) & c_access=no [0x10f1f resolution 24 continue]
+highway=track & ( c_smoothness=intermediate | width>=2 ) & c_access=no  [0x10f16 resolution 24 continue]
+highway=track & ( c_smoothness=intermediate | width>=2 ) & c_access=no  [0x10f13 resolution 24]
+
+# Chemin exploitation moindre carossable 
+highway=track & ( c_smoothness=intermediate | width>=2 ) [0x10f1f road_class=0 road_speed=1 resolution 22 continue]
+highway=track & ( c_smoothness=intermediate | width>=2 ) [0x10f17 road_class=0 road_speed=1 resolution 22 continue]
+highway=track & ( c_smoothness=intermediate | width>=2 ) [0x10f13 road_class=0 road_speed=1 resolution 22]
+
+#0x10f15
+highway=footway & width>=2 & c_access=no [0x10f15 resolution 24]
+highway=track & c_access=no [0x10f15 resolution 24]
+highway=path & foot=designated & bicycle=designated & c_access=no [0x10f15 resolution 24]
+highway=cycleway & foot=yes & c_access=no [0x10f15 resolution 24]
+
+# 0x1e
+highway=cycleway & foot=yes & surface=gravel & (area=no | area!=* )[0x1e resolution 22]
+highway=cycleway & foot=yes & surface=paved & (area=no | area!=* ) [0x1e road_class=0 road_speed=1 resolution 22]
+
+# 0x0a
+highway=footway & width>=2 [0x0a road_class=0 road_speed=1 resolution 22]
+highway=track [0x0a road_class=0 road_speed=1 resolution 22]
+highway=path & foot=designated & bicycle=designated [0x0a road_class=0 road_speed=1 resolution 22]
+
+# 0x0e
+highway=cycleway [0x0e road_class=0 road_speed=1 resolution 22]
+
+# 0x0f
+highway=steps [0x0f road_class=0 road_speed=0 resolution 24]
+
+#0x11f02
+highway=path & c_visibility=horrible & c_access=no [0x11f02 resolution 24]
+
+#0x11f01
+highway=path & c_visibility= horrible [0x11f01 road_class=0 road_speed=0 resolution 22]
+
+#0x10f11
+highway=path & c_visibility=intermediate & c_access=no [0x10f11 resolution 24]
+
+#0x10f10
+highway=path & c_visibility=intermediate [0x10f10 road_class=0 road_speed=0 resolution 22]
+
+#0x10f09
+highway=path & c_access=no [0x10f09 resolution 24]
+
+# 0x10
+highway=path [0x10 road_class=0 road_speed=0 resolution 22]
+highway=pedestrian & bicycle=yes & surface=asphalt & (area=no | area!=* )[0x10 road_class=0 road_speed=0 resolution 22]
+highway=pedestrian & (area=no | area!=* )[0x10 road_class=0 road_speed=0 resolution 22]
+highway=footway & (bicycle=dismount | bicycle=no) [0x10 road_class=0 road_speed=0 resolution 22]
+highway=footway & footway!=* [0x10 road_class=0 road_speed=0 resolution 22]
+
+# 0x1f
+waterway = river & (intermittent=no | intermittent!=*) & (tunnel=no | tunnel!=*) {name "${name}"} [0x1f resolution 22 continue]
+
+# 0x18
+waterway=stream & (intermittent=no | intermittent!=*) & (tunnel=no | tunnel!=*) [0x18 resolution 23 continue]
+waterway=riverbank & (tunnel=no | tunnel!=*) [0x18 resolution 20 continue]
+waterway=river & (tunnel=no | tunnel!=*) [0x18 resolution 22 continue]
+waterway=canal & (tunnel=no | tunnel!=*) [0x18 resolution 22 continue]
+waterway=drain & (tunnel=no | tunnel!=*) [0x18 resolution 23 continue]
+
+# 0x1b
+route=ferry [0x1b resolution 24]
+
+# Contour 0x20 0x21 0x22
+## 100m
+contour=elevation & ele ~ '\d*00' & ele > 0 { name '${ele|conv:"m=>ft"}' } [0x22 resolution 23-24]
+
+## 50m
+contour=elevation & ele ~ '.*\d[0,5]0' & ele > 0 { name '${ele|conv:"m=>ft"}' } [0x22 resolution 24]
+
+## 10m
+contour=elevation & ele > 0 [0x20 resolution 24]
+
+# 0x26
+waterway=stream & intermittent=yes & (tunnel=no | tunnel!=*) [0x26 resolution 23]
+
+# 0x29
+man_made=pipeline [0x29 resolution 24]
+power=line [0x29 resolution 24]
+
+# 0x10e00
+man_made=goods_conveyor [0x10e00 resolution 24]
+
+# 0x10e01
+aerialway=* [0x10e01 resolution 24]
+
+# 0x10e02
+railway=rail & (tunnel=no | tunnel!=* | (tunnel=yes & length()<=20)) [0x10e02 resolution 20]
+railway=light_rail & (tunnel=no | tunnel!=* | (tunnel=yes & length()<=20)) [0x10e02 resolution 22]
+
+# 0x10e03
+railway=abandoned & (tunnel=no | tunnel!=* | (tunnel=yes & length()<=20)) [0x10e03 resolution 23]
+
+# 0x10e04
+railway=tram & (tunnel=no | tunnel!=* | (tunnel=yes & length()<=20)) [0x10e03 resolution 24]
+
+# 0x10e05
+railway=funicular & (tunnel=no | tunnel!=* | (tunnel=yes & length()<=20)) [0x10e03 resolution 24]
+
+# 0x10e06
+railway=rail & tunnel=yes & length()>20 [0x10e06 resolution 24]
+railway=abandoned & tunnel=yes & length()>20 [0x10e06 resolution 24]
+railway=tram & tunnel=yes & length()>20 [0x10e06 resolution 24]
+railway=funicular & tunnel=yes & length()>20 [0x10e06 resolution 24]
+
+# 0x10e0a
+railway=construction & (tunnel=no | tunnel!=* | (tunnel=yes & length()<=20)) [0x10e0a resolution 24]
+
+# 0x10e0b
+railway=construction & tunnel=yes & length()>20 [0x10e0b resolution 24]
+
+# 0x10e0d
+waterway=waterfall [0x10e0d resolution 24]
+
+# 0x10e10
+waterway=* & tunnel=yes [0x10e10 resolution 24]
+
+# 0x10e13
+wall=noise_barrier [0x10e13 resolution 24]
+
+# 0x10e19
+embankment=yes [0x10e19 resolution 24]
+
+# 0x10e1c
+highway=* & construction=* [0x10e1c resolution 24]
+
+# 0x10e1e
+boundary=national_park [0x10e1e resolution 20-23]
+
+# 0x10e1f
+leisure=nature_reserve [0x10e1f resolution 21-23]
+
+# 0x10f07
+landuse=military [0x10f07 resolution 22 continue]
+
+# 0x11f06
+barrier=fence [0x11f06 resolution 24 continue]
+
+#0x10f14
+highway=via_ferrata [0x10f14 resolution 24]
+
+#0x10f18
+natural=cliff [0x10f18 resolution 23]
+
+

@@ -1,0 +1,32 @@
+#Cities
+place=city & capital=yes [0x0300 resolution 17]
+place=city & population>200000 {name "${name:fr}" | "${name}"} [0x0700 resolution 17]
+place=city {name "${name:fr}" | "${name}"} [0x0800 resolution 18]
+place=town {name "${name:fr}" | "${name}"} [0x0800 resolution 19]
+place=village {name "${name:fr}" | "${name}"} [0x00900 resolution 20]
+place=hamlet {name "${name:fr}" | "${name}"} [0x00d00 resolution 21]
+
+
+#POI
+natural=cave_entrance {name "${name:fr}" | "${name}"}  [0x06602 resolution 20]
+building=church | building=cathedral | (amenity= place_of_worship & religion=christian) {name "${name:fr}" | "${name}"} [0x02c0b resolution 21]
+railway=station {name "${name:fr}" | "${name}"} [0x02f08 resolution 19]
+amenity=parking [0x02f0b resolution 24] 
+amenity=bicycle_parking [0x1151f resolution 24]
+amenity=restaurant | amenity=fast_food {name "${name:fr}" | "${name}"} [0x02d02 resolution 21]
+amenity=bar {name "${name:fr}" | "${name}"} [0x02d02 resolution 21]
+shop=bicycle|amenity=bicycle_repair_station|club=bicycle | association=bicycle |(club=sport & sport=cycling) {name "${name:fr}" | "${name}"} [0x11500 resolution 24]
+tourism=alpine_hut |tourism=wilderness_hut {name "${name:fr}" | "${name}"} [0x11518 resolution 22]
+tourism=camp_site {name "${name:fr}" | "${name}"} [0x02b03 resolution 19]
+amenity=drinking_water [0x06414 resolution 23]
+information=guidepost [0x02f0c resolution 20]
+tourism=viewpoint {name "${name:fr}" | "${name}"} [0x05200 resolution 22] 
+tourism=picnic_site [0x11517 resolution 20]
+information=* [0x02f0c resolution 21]
+
+natural=saddle {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06701 resolution 23]
+natural=peak & ele>=4000 {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06616 resolution 18]
+natural=peak & ele>=3000 {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06616 resolution 19]
+natural=peak {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06616 resolution 20]
+aeroway=aerodrome {name "${name:fr}" | "${name}"}[0x02f04 resolution 18]
+
