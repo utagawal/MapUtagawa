@@ -65,7 +65,7 @@ highway=unclassified [0x07 road_class=2 road_speed=4 resolution 22]
 highway=service [0x07 road_class=2 road_speed=2 resolution 22]
 highway=living_street [0x07 road_class=2 road_speed=2 resolution 22]
 
-#0x12 //Lilian il n'y a pas le rendu dans le typ du coup tu voulais que ca affiche quoi?
+# 0x1e
 highway=path & bicycle=designated  { setaccess no ; set mkgmap:foot = yes ; set mkgmap:bicycle = yes } [0x1e road_class=0 road_speed=2 resolution 22]
 
 # 0x0a
@@ -80,7 +80,7 @@ highway=steps [0x0f road_class=0 road_speed=0 resolution 24]
 # 0x10
 highway=path { setaccess no ; set mkgmap:foot = yes ; set mkgmap:bicycle = yes ; set mkgmap:unpaved = yes } [0x10 road_class=0 road_speed=1 resolution 22]
 
-#0x0b
+# 0x0b
 highway=pedestrian { setaccess no ; set mkgmap:foot = yes ; set mkgmap:bicycle = yes } [0x0b resolution 22]
 highway=footway { setaccess no ; set mkgmap:foot = yes }[0x0b road_class=0 road_speed=0 resolution 22]
 
