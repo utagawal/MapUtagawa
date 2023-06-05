@@ -12,15 +12,11 @@ aeroway=apron [0x05 resolution 17]
 # 0x11007
 natural=bare_rock | natural=cliff [0x11007 resolution 13]
 
-
 # 0x1101b
 landuse=military [0x1101b resolution 14]
 
-
 # 0x11008
 natural=scree [0x11008 resolution 14]
-
-
 
 # 0x15
 leisure=nature_reserve & (
@@ -81,12 +77,8 @@ leisure=nature_reserve & (
         |name = "Réserve naturelle géologique de Pontlevoy"
         |name = "Réserve naturelle du domaine de Beauguillot")[0x15 resolution 14]
 
-
-
 #0x16
-
 protection_title="Réserve biologique intégrale" | protection_title="Réserve naturelle nationale" [0x16 resolution 14]
-
 
 # 0x1a
 landuse=cemetery [0x1a resolution 24]
