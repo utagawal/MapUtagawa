@@ -102,7 +102,9 @@ dm=`date "+%Y_%m_%d"`
 
 mkdir /var/data/garminmaps/UtagawaVTTmap/${land_without_space}
 
-mv -f gmapsupp.img /var/data/garminmaps/UtagawaVTTmap/${land_without_space}/${name_file}${dm}.img
+zip /var/data/garminmaps/UtagawaVTTmap/${land_without_space}/${name_file}${dm}.zip gmapsupp.img
+
+mv -f gmapsupp.img /var/data/garminmaps/UtagawaVTTmap/${land_without_space}/${name_file}latest.img
 
 time_task
 
