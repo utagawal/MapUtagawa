@@ -19,6 +19,7 @@ shop=bicycle|amenity=bicycle_repair_station|club=bicycle | association=bicycle |
 tourism=alpine_hut |tourism=wilderness_hut {name "${name:fr}" | "${name}"} [0x11518 resolution 22]
 tourism=camp_site {name "${name:fr}" | "${name}"} [0x02b03 resolution 19]
 amenity=drinking_water [0x06414 resolution 23]
+man_made=water_tap & drinking_water=yes [0x06414 resolution 24]
 information=guidepost [0x02f0c resolution 20]
 tourism=viewpoint {name "${name:fr}" | "${name}"} [0x05200 resolution 22] 
 tourism=picnic_site [0x11517 resolution 20]
