@@ -17,13 +17,13 @@ amenity=restaurant | amenity=fast_food {name "${name:fr}" | "${name}"} [0x02d02 
 amenity=bar {name "${name:fr}" | "${name}"} [0x02d02 resolution 21]
 shop=bicycle|amenity=bicycle_repair_station|club=bicycle | association=bicycle |(club=sport & sport=cycling) {name "${name:fr}" | "${name}"} [0x11500 resolution 24]
 tourism=alpine_hut |tourism=wilderness_hut {name "${name:fr}" | "${name}"} [0x11518 resolution 22]
-tourism=camp_site {name "${name:fr}" | "${name}"} [0x02b03 resolution 19]
+tourism=camp_site {name "${name:fr}" | "${name}"} [0x02b03 resolution 20]
 amenity=drinking_water [0x06414 resolution 23]
 man_made=water_tap & drinking_water=yes [0x06414 resolution 24]
-information=guidepost [0x02f0c resolution 20]
+information=guidepost [0x02f0c resolution 22]
 tourism=viewpoint {name "${name:fr}" | "${name}"} [0x05200 resolution 22] 
-tourism=picnic_site [0x11517 resolution 20]
-information=* [0x02f0c resolution 21]
+tourism=picnic_site [0x11517 resolution 23]
+information=* [0x02f0c resolution 22]
 
 natural=saddle {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06701 resolution 23]
 natural=peak & ele>=4000 {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06616 resolution 18]
@@ -31,7 +31,7 @@ natural=peak & ele>=3000 {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06
 natural=peak {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06616 resolution 20]
 aeroway=aerodrome {name "${name:fr}" | "${name}"}[0x02f04 resolution 18]
 
-highway=*  & bicycle=no  & (mtb:scale =5 | mtb:scale =6) & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x11520 resolution 20]
-highway=*  & bicycle=no & mtb:scale != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x11520 resolution 20]
-highway=*  & bicycle=no & access = no & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x11520 resolution 20]
+highway=*  & bicycle=no  & (mtb:scale =5 | mtb:scale =6) & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x1151a resolution 20]
+highway=*  & bicycle=no & mtb:scale != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x1151a resolution 20]
+highway=*  & bicycle=no & access = no & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x1151a resolution 20]
 
