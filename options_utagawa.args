@@ -1,7 +1,7 @@
 max-jobs: 8
 road-name-pois
 add-pois-to-areas
-add-pois-to-lines: mid
+add-pois-to-lines: all
 remove-short-arcs
 precomp-sea=../sea.zip
 x-check-precomp-sea: 0

@@ -31,3 +31,7 @@ natural=peak & ele>=3000 {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06
 natural=peak {name "${name:fr} (${ele})" | "${name} (${ele})"} [0x06616 resolution 20]
 aeroway=aerodrome {name "${name:fr}" | "${name}"}[0x02f04 resolution 18]
 
+highway=*  & bicycle=no  & (mtb:scale =5 | mtb:scale =6) & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x11520 resolution 20]
+highway=*  & bicycle=no & mtb:scale != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x11520 resolution 20]
+highway=*  & bicycle=no & access = no & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x11520 resolution 20]
+
