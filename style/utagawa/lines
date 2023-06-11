@@ -100,13 +100,12 @@ route=ferry [0x1b resolution 24]
 ############## Contours ####################
 # 0x19 Contours - Lignes de niveau
 ## 100m
-contour=elevation & ele ~ '\d*00' & ele > 0 { name '${ele|conv:"ft=>m"}' } [0x19 resolution 23-24]
+contour=elevation & ele ~ '\d*00' & ele > 0 { name "${ele}" } [0x19 resolution 23-24]
 ## 50m
-contour=elevation & ele ~ '.*\d[0,5]0' & ele > 0 { name '${ele|conv:"ft=>m"}' } [0x19 resolution 24]
+contour=elevation & ele ~ '.*\d[0,5]0' & ele > 0 [0x1c resolution 24]
 ## 10m
 contour=elevation & ele > 0 [0x1c resolution 24]
 ############## Contours ####################
-
 
 # 0x26
 waterway=stream & intermittent=yes & (tunnel=no | tunnel!=*) [0x26 resolution 23]

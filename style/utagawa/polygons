@@ -85,8 +85,26 @@ landuse=cemetery [0x1a resolution 24]
 
 # 0x32
 water=* [0x32 resolution 0]
-
 place=sea |natural=sea [0x32 resolution 0]
+
+# 0x03f
+waterway=riverbank [0x03f resolution 17]
+waterway=river [0x03f resolution 20]
+waterway=lock_gate [0x03f resolution 24]
+water=stream [0x03f resolution 24]
+natural=water & area_size()>160000 [0x03f resolution 17]
+natural=water & area_size()>50000 [0x03f resolution 18]
+natural=water & area_size()>16000 [0x03f resolution 19]
+natural=water & area_size()>8000 [0x03f resolution 20]
+natural=water [0x03f resolution 22]
+water=river & width>200 [0x03f resolution 18]
+water=river & (width<200 | width!=*) [0x03f resolution 19]
+leisure=swimming_pool [0x03f resolution 24]
+
+# 0x4c
+landuse=reservoir [0x4c resolution 23 ]
+landuse=basin [0x4c resolution 23 ]
+
 
 # 0x4d
 natural=glacier [0x4d resolution 13]

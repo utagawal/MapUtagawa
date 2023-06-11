@@ -18,6 +18,6 @@ ignore-turn-restrictions
 preserve-element-order
 min-size-polygon: 4
 merge-lines
-copyright-message: Map data © openstreetmap.org, Map layout © UtagawaVTT.com
+copyright-message: Map data ©openstreetmap.org, Map layout ©UtagawaVTT.com
 
 
