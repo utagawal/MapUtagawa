@@ -50,12 +50,12 @@ if [ $count != 0 ];then
    rm *.img 
    echo "Split contour ...."
    
-   java -Xmx32768m -jar ../splitter/splitter.jar --mapid=${mapname_courbes}0000 --max-nodes=1000000 --polygon-file=${poly} --keep-complete=false *.osm.gz
+   java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname_courbes}0000 --max-nodes=1000000 --polygon-file=${poly} --keep-complete=false *.osm.gz
 
    mv template.args courbes.args
  
    echo "Creation of the map courbes ...."
-   java -Xmx32768m -jar ../mkgmap/mkgmap.jar -c ../options_courbes.args -c courbes.args
+   java -Xmx16384m -jar ../mkgmap/mkgmap.jar -c ../options_courbes.args -c courbes.args
 
    rm ${mapname_courbes}*.osm.pbf
    rm areas.list
@@ -70,7 +70,7 @@ if [ $count != 0 ];then
 fi   
 
 
-java -Xmx32768m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --description="${name}" -c ../options_dem.args --gmapsupp ../style/rando.typ ${mapname_courbes}*.img
+java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --description="${name}" -c ../options_dem.args --gmapsupp ../style/rando.typ ${mapname_courbes}*.img
 
 
 rm areas.list
