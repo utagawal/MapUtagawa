@@ -8,6 +8,7 @@ tracktype ~ 'grade[3-4]' | smoothness ~ '(intermediate|bad|very_bad)'  { add c_s
 highway=*  & bicycle=no  & (mtb:scale =5 | mtb:scale =6)  [0x10f14 resolution 20]
 highway=*  & bicycle=no & mtb:scale != * [0x10f14 resolution 20]
 highway=*  & bicycle=no & access = no [0x10f14 resolution 20]
+highway=footway & bicycle!=yes & mtb:scale != * [0x10f14 resolution 20]
 
 # 0x10f01
 ##sentiers GR
