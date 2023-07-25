@@ -1,3 +1,4 @@
 max-jobs: 8
 style-file=../style/utagawa
 transparent
+latin1
