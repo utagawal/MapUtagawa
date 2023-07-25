@@ -82,9 +82,9 @@ fi
 java -Xmx16384m -jar ../mkgmap/mkgmap.jar -c ../options_${type}.args -c map.args
 
 if [ -f "${mapname_courbes}0000.img" ]; then
-   java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --description="UtagawaVTTmap (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img ${mapname_courbes}*.img
+   java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --description="MapUtagawa (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img ${mapname_courbes}*.img
 else
-   java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --description="UtagawaVTTmap (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img
+   java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --description="MapUtagawa (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img
 fi
 
  rm ${mapname}*.img 
