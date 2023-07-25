@@ -44,3 +44,5 @@ highway=*  & bicycle=no & access = no & (mkgmap:line2poitype=start | mkgmap:line
 
 aerialway=chair_lift & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid) [0x1151c resolution 24]
 aerialway=* & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid) [0x1151b resolution 24]
+
+ford=yes [0x1151d resolution 24]

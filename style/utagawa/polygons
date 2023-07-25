@@ -84,14 +84,16 @@ protection_title="Réserve biologique intégrale" | protection_title="Réserve n
 landuse=cemetery [0x1a resolution 24]
 
 # 0x32
-water=* [0x32 resolution 0]
-place=sea |natural=sea [0x32 resolution 0]
+# water=* [0x32 resolution 0]
+natural=sea [0x32 resolution 17]
+place=sea [0x32 resolution 0]
 
 # 0x03f
 waterway=riverbank [0x03f resolution 17]
 waterway=river [0x03f resolution 20]
 waterway=lock_gate [0x03f resolution 24]
 water=stream [0x03f resolution 24]
+water=lake [0x03f resolution 17]
 natural=water & area_size()>160000 [0x03f resolution 17]
 natural=water & area_size()>50000 [0x03f resolution 18]
 natural=water & area_size()>16000 [0x03f resolution 19]
@@ -128,25 +130,15 @@ natural=wetland [0x51 resolution 13]
 # 0x53
 landcover=sand [0x53 resolution 13]
 
-
-# 0x10f04
-building=*[0x10f04 resolution 17]
-#& area_size()>32000 [0x10002 resolution 17]
-#building=* & area_size()>16000 [0x10002 resolution 19]
-#building=* & area_size()>8000 [0x10002 resolution 20]
-
-
 # 0x10005
 leisure=track[0x10005 resolution 19 continue]
 
 # 0x1006
 leisure=pitch[0x10006 resolution 19]
 
-
 # 0x50
 natural=wood[0x50 resolution 13]
 landuse=forest[0x50 resolution 13]
-
 
 # 0x11003
 natural=grassland [0x11003 resolution 13]
@@ -155,11 +147,8 @@ leisure=park[0x11003 resolution 13]
 leisure=garden[0x11003 resolution 13]
 landuse=allotments[0x11003 resolution 13]
 
-
-
-
-
-
-
-
-
+# 0x10f04
+building=*[0x10f04 resolution 17]
+#& area_size()>32000 [0x10002 resolution 17]
+#building=* & area_size()>16000 [0x10002 resolution 19]
+#building=* & area_size()>8000 [0x10002 resolution 20]
