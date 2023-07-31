@@ -22,6 +22,7 @@ natural=scree [0x11008 resolution 14]
 leisure=nature_reserve & (
 	name = "Parc national de la Vanoise (cœur)"
 	|name = "Parc national des Écrins (cœur)"
+	|name = "Parc national des Pyrénées (cœur)"
 	|name = "Réserve naturelle du Bagnas"
 	|name = "Réserve naturelle du Bout du lac d'Annecy"
 	|name = "Réserve naturelle de Chastreix-Sancy"
