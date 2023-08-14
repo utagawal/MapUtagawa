@@ -370,6 +370,71 @@ building = * & building != no [0x13 resolution 24]
 # continue wg. weiterer identischer Flächen
 leisure = nature_reserve [0x0d resolution 20-23 continue]
 
+# ------------------------------------------------------------
+# Leisure:
+# Parcs naturels interdits aux VTT
+# ------------------------------------------------------------
+leisure=nature_reserve & (
+	name = "Parc national de la Vanoise (cœur)"
+	|name = "Parc national des Écrins (cœur)"
+	|name = "Parc national des Pyrénées (cœur)"
+	|name = "Réserve naturelle du Bagnas"
+	|name = "Réserve naturelle du Bout du lac d'Annecy"
+	|name = "Réserve naturelle de Chastreix-Sancy"
+        |name = "Réserve naturelle des Chaumes du Verniller"
+        |name = "Réserve naturelle de Conat"
+        |name = "Réserve naturelle du coteau de Mesnil Soleil"
+        |name = "Réserve naturelle du Courant d'Huchet"
+        |name = "Réserve naturelle de l'Étang du Cousseau"
+        |name = "Réserve naturelle de l'étang de la Mazière"
+        |name = "Réserve naturelle de l'étang du Grand-Lemps"
+        |name = "Réserve naturelle de la forêt d'Orient"
+        |name = "Réserve naturelle de la forêt de la Massane"
+        |name = "Réserve naturelle de la Grande Sassière"
+        |name = "Réserve Naturelle des îlets de Sainte-Anne"
+        |name = "Réserve naturelle de Jujols"
+        |name = "Réserve naturelle de Mantet"
+        |name = "Réserve naturelle du marais de Vesles-et-Caumont"
+        |name = "Réserve naturelle de la mare de Vauville"
+        |name = "Réserve naturelle du Mas Larrieu"
+        |name = "Réserve naturelle du Mont Grand Matoury"
+        |name = "Réserve naturelle de Nohèdes"
+        |name = "Réserve naturelle du Pinail"
+        |name = "Réserve naturelle de Prats-de-Mollo-la-Preste"
+        |name = "Réserve naturelle des prés salés d'Arès et de Lège-Cap-Ferret"
+        |name = "Réserve naturelle de la presqu'île de la Caravelle"
+        |name = "Réserve naturelle de Py"
+        |name = "Réserve naturelle de la tourbière de Mathon"
+        |name = "Réserve naturelle de la Vallée d’Eyne"
+        |name = "Réserve naturelle de la vallée de Chaudefour"
+        |name = "Réserve naturelle des anciennes carrières d'Orival"
+        |name = "Réserve naturelle régionale d'Aulon"
+        |name = "Réserve naturelle du bois des Agneux"
+        |name = "Réserve naturelle du Bois des Roches"
+        |name = "Réserve naturelle de Cambounet-sur-le-Sor"
+        |name = "Réserve naturelle de la Côte de la Fontaine"
+        |name = "Réserve naturelle des Grads de Naves"
+        |name = "Réserve naturelle de la Grotte des Sadoux"
+        |name = "Réserve naturelle de la Massonne"
+        |name = "Réserve naturelle des landes et marais de Glomel"
+        |name = "Réserve naturelle du Héron"
+        |name = "Réserve naturelle des Marais de Taligny"
+        |name = "réserve naturelle régionale du massif du Montious"
+        |name = "Réserve naturelle de Saint-Maurin"
+        |name = "Réserve naturelle du Val de Loire Bourbonnais"
+        |name = "Réserve naturelle de la Vallée des Cailles"
+        |name = "Réserve naturelle de la baie de l'Aiguillon"
+        |name = "Réserve naturelle de la Casse de la Belle Henriette"
+        |name = "Réserve naturelle de Lilleau-des-Niges"
+        |name = "Réserve naturelle du marais d'Yves"
+        |name = "Réserve naturelle de Moëze-Oléron"
+        |name = "Réserve naturelle du Marais communal de Saint-Denis-du-Payré"
+        |name = "Réserve naturelle de l'étang de Haute-Jarrie"
+        |name = "Réserve naturelle géologique de Pontlevoy"
+        |name = "Réserve naturelle du domaine de Beauguillot")[0x57 resolution 14]
+
+#0x16
+protection_title="Réserve biologique intégrale" | protection_title="Réserve naturelle nationale" [0x58 resolution 14]
 
 # ------------------------------------------------------------
 # Landnutzung / landuse:
