@@ -241,7 +241,7 @@
 # Include language file containing all translations
 # -------------------------------------------------
 #define PP_VARS_ACTIVE_IN_STRINGS
-include "style-translations"
+#include "style-translations"
 #undef PP_VARS_ACTIVE_IN_STRINGS
 
 # -------------------------------------------------
