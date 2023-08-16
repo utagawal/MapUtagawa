@@ -1637,8 +1637,8 @@ waterway = waterfall & name = * {name "${name} (Cascade)"} [0x6508 resolution 24
 # --------------------------------------------
 
 # Télésiège et télécabine
-aerialway=chair_lift & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid) [0x04809 resolution 24]
-aerialway=* & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid) [0x0480a resolution 24]
+aerialway=chair_lift & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid) [0x0480a resolution 24]
+(aerialway=cable_car | aerialway=gondola) & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid) [0x04809 resolution 24]
 
 # Eine Station, an der Passagiere ein- oder aussteigen können. [point, closedway]
 aerialway = station & name = * & ele = * {name "${name} (${ele}) (Station de télécabine)"} [0x661c resolution 23]
