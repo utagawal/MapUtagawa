@@ -714,7 +714,8 @@ highway = trunk & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set f
 # primary
 # --------------------------------------------
 # 0x03 = Bitmap 2 (transparent, nur fuer Routing, Label)
-highway = primary & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x03 road_class=2 road_speed=5 resolution 24 continue with_actions]
+# highway = primary & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x03 road_class=2 road_speed=5 resolution 24 continue with_actions]
+highway = primary & fzkrouting != yes {set fzkrouting=yes} [0x03 road_class=2 road_speed=5 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # secondary
@@ -851,11 +852,16 @@ highway = primary & man_made = dyke            [0x011f03 resolution 24 continue 
 # 0x010f0e = 2/1 (mittel, NoLabel)
 # 0x010f0f = 1/1 (schmal, NoLabel)
 # 0x010e0b = 1 (sehr schmal, NoLabel)
-highway = primary {set name = '${name}' | '${ref}' | ''}        [0x011f15 resolution 24 continue with_actions]
-highway = primary {set name = '${name}' | '${ref}' | ''}        [0x012101 resolution 23-23 continue with_actions]
-highway = primary {set name = '${ref}' | ''}                    [0x010f0e resolution 22-22 continue with_actions]
-highway = primary {set name = '${ref}' | ''}                    [0x010f0f resolution 20-21 continue with_actions]
-highway = primary & motorroad = yes {set name = '${ref}' | ''}  [0x010e0b resolution 18-19]
+# highway = primary {set name = '${name}' | '${ref}' | ''}        [0x011f15 resolution 24 continue with_actions]
+# highway = primary {set name = '${name}' | '${ref}' | ''}        [0x012101 resolution 23-23 continue with_actions]
+# highway = primary {set name = '${ref}' | ''}                    [0x010f0e resolution 22-22 continue with_actions]
+# highway = primary {set name = '${ref}' | ''}                    [0x010f0f resolution 20-21 continue with_actions]
+# highway = primary & motorroad = yes {set name = '${ref}' | ''}  [0x010e0b resolution 18-19]
+highway = primary         [0x011f15 resolution 24 continue with_actions]
+highway = primary         [0x012101 resolution 23-23 continue with_actions]
+highway = primary         [0x010f0e resolution 22-22 continue with_actions]
+highway = primary         [0x010f0f resolution 20-21 continue with_actions]
+highway = primary & motorroad = yes   [0x010e0b resolution 18-19]
 
 
 # Land- oder sehr gut ausgebaute Kreisstrasse:
@@ -1860,9 +1866,9 @@ barrier = hedge_bank [ 0x012111 resolution 24 ]
  <finalize>
 # deactivated: include 'roadspeed';
 
-name=* { name '${name}' }
-mkgmap:default_name=* { name '${mkgmap:default_name}' }
-mkgmap:display_name=* { addlabel '${mkgmap:display_name|subst:;=>/}' }
+# name=* { name '${name}' }
+# mkgmap:default_name=* { name '${mkgmap:default_name}' }
+# mkgmap:display_name=* { addlabel '${mkgmap:display_name|subst:;=>/}' }
 
 mkgmap:label:1!=* & ref=* { addlabel '${ref|part:;:1}' }
 mkgmap:label:1!=* & int_ref=* { addlabel '${int_ref|part:;:1}' }

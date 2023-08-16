@@ -1641,10 +1641,10 @@ aerialway=chair_lift & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid) [0x
 (aerialway=cable_car | aerialway=gondola) & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid) [0x04809 resolution 24]
 
 # Eine Station, an der Passagiere ein- oder aussteigen können. [point, closedway]
-aerialway = station & name = * & ele = * {name "${name} (${ele}) (Station de télécabine)"} [0x661c resolution 23]
-aerialway = station & name = *           {name "${name} (Station de télécabine)"}          [0x661c resolution 23]
-aerialway = station & ele = *            {name "Station de télécabine (${ele})"}           [0x661c resolution 23]
-aerialway = station                      {name "Station de télécabine"}                    [0x661c resolution 23]
+aerialway = station & name = * & ele = * {name "${name} (${ele}) (Station de télécabine)"} [0x661c resolution 24]
+aerialway = station & name = *           {name "${name} (Station de télécabine)"}          [0x661c resolution 24]
+aerialway = station & ele = *            {name "Station de télécabine (${ele})"}           [0x661c resolution 24]
+aerialway = station                      {name "Station de télécabine"}                    [0x661c resolution 24]
 
 # Mast einer Liftanlage. [point]
 # aerialway = pylon {name "${name} ($__PYLON__)" | "$__PYLON__"} [0x6417 resolution 24]
