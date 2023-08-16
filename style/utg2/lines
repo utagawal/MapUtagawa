@@ -546,17 +546,17 @@ highway = sacscalet2t3 [0x12114 resolution 21]
   highway = path & sac_scale = difficult_alpine_hiking    {set highway = sacscalet4t5t6;    set name = '${name} (T6)' | '$__ALPINETRAIL__ (T6)' }
 #else
   # T1
-  highway = path & sac_scale = hiking                     {set highway = sacscalet1;        set name = '${name} (T1)' | '$__ALPINETRAIL__ (T1)' }
+  # highway = path & sac_scale = hiking                     {set highway = sacscalet1;        set name = '${name} (T1)' | '$__ALPINETRAIL__ (T1)' }
   # T2
-  highway = path & sac_scale = mountain_hiking            {set highway = sacscalet2t3;      set name = '${name} (T2)' | '$__ALPINETRAIL__ (T2)' }
+  #highway = path & sac_scale = mountain_hiking            {set highway = sacscalet2t3;      set name = '${name} (T2)' | '$__ALPINETRAIL__ (T2)' }
   # T3
-  highway = path & sac_scale = demanding_mountain_hiking  {set highway = sacscalet2t3;      set name = '${name} (T3)' | '$__ALPINETRAIL__ (T3)' }
+  # highway = path & sac_scale = demanding_mountain_hiking  {set highway = sacscalet2t3;      set name = '${name} (T3)' | '$__ALPINETRAIL__ (T3)' }
   # T4
-  highway = path & sac_scale = alpine_hiking              {set highway = sacscalet4t5t6;    set name = '${name} (T4)' | '$__ALPINETRAIL__ (T4)'; set access = no; set motorcar = no; set bicycle = no; set foot = no}
+  # highway = path & sac_scale = alpine_hiking              {set highway = sacscalet4t5t6;    set name = '${name} (T4)' | '$__ALPINETRAIL__ (T4)'; set access = no; set motorcar = no; set bicycle = no; set foot = no}
   # T5
-  highway = path & sac_scale = demanding_alpine_hiking    {set highway = sacscalet4t5t6;    set name = '${name} (T5)' | '$__ALPINETRAIL__ (T5)'; set access = no; set motorcar = no; set bicycle = no; set foot = no}
+  # highway = path & sac_scale = demanding_alpine_hiking    {set highway = sacscalet4t5t6;    set name = '${name} (T5)' | '$__ALPINETRAIL__ (T5)'; set access = no; set motorcar = no; set bicycle = no; set foot = no}
   # T6
-  highway = path & sac_scale = difficult_alpine_hiking    {set highway = sacscalet4t5t6;    set name = '${name} (T6)' | '$__ALPINETRAIL__ (T6)'; set access = no; set motorcar = no; set bicycle = no; set foot = no}
+  # highway = path & sac_scale = difficult_alpine_hiking    {set highway = sacscalet4t5t6;    set name = '${name} (T6)' | '$__ALPINETRAIL__ (T6)'; set access = no; set motorcar = no; set bicycle = no; set foot = no}
 #endif
 
 # access
@@ -720,13 +720,15 @@ highway = primary & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set
 # secondary
 # --------------------------------------------
 # 0x04 = Bitmap 2 (transparent, nur fuer Routing, Label)
-highway = secondary & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x04 road_class=2 road_speed=4 resolution 24 continue with_actions]
+# highway = secondary & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x04 road_class=2 road_speed=4 resolution 24 continue with_actions]
+highway = secondary & fzkrouting != yes {set fzkrouting=yes} [0x04 road_class=2 road_speed=4 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # tertiary
 # --------------------------------------------
 # 0x05 = Bitmap 2 (transparent, nur fuer Routing, Label)
-highway = tertiary & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x05 road_class=2 road_speed=3 resolution 24 continue with_actions]
+# highway = tertiary & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x05 road_class=2 road_speed=3 resolution 24 continue with_actions]
+highway = tertiary & fzkrouting != yes {set fzkrouting=yes} [0x05 road_class=2 road_speed=3 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # residential
@@ -872,10 +874,14 @@ highway = secondary & man_made = dyke           [0x01040c resolution 24 continue
 # 0x010e0d = 4/1 (breit, NoLabel)
 # 0x010f10 = 2/1 (mittel, NoLabel)
 # 0x010f11 = 1/1 (schmal, NoLabel)
-highway = secondary {set name = '${ref}' | ''} [0x011f16 resolution 24 continue with_actions]
-highway = secondary {set name = '${ref}' | ''} [0x010e0d resolution 23-23 continue with_actions]
-highway = secondary {set name = '${ref}' | ''} [0x010f10 resolution 22-22 continue with_actions]
-highway = secondary {set name = '${ref}' | ''} [0x010f11 resolution 20-21]
+# highway = secondary {set name = '${ref}' | ''} [0x011f16 resolution 24 continue with_actions]
+# highway = secondary {set name = '${ref}' | ''} [0x010e0d resolution 23-23 continue with_actions]
+# highway = secondary {set name = '${ref}' | ''} [0x010f10 resolution 22-22 continue with_actions]
+# highway = secondary {set name = '${ref}' | ''} [0x010f11 resolution 20-21]
+highway = secondary  [0x011f16 resolution 24 continue with_actions]
+highway = secondary  [0x010e0d resolution 23-23 continue with_actions]
+highway = secondary  [0x010f10 resolution 22-22 continue with_actions]
+highway = secondary  [0x010f11 resolution 20-21]
 
 
 # Kreisstrasse:
@@ -893,9 +899,12 @@ highway = tertiary & man_made = dyke            [0x011f03 resolution 24 continue
 # 0x010e0e = 4/1 (breit, NoLabel)
 # 0x010f12 = 2/1 (mittel, NoLabel)
 # 0x010f13 = 1/1 (schmal, NoLabel)
-highway = tertiary {set name = '${name}' | '${ref}' | ''} [0x010e0e resolution 24 continue with_actions]
-highway = tertiary {set name = '${ref}' | ''}             [0x010f12 resolution 22-23 continue with_actions]
-highway = tertiary {set name = '${ref}' | ''}             [0x010f13 resolution 20-21]
+# highway = tertiary {set name = '${name}' | '${ref}' | ''} [0x010e0e resolution 24 continue with_actions]
+# highway = tertiary {set name = '${ref}' | ''}             [0x010f12 resolution 22-23 continue with_actions]
+# highway = tertiary {set name = '${ref}' | ''}             [0x010f13 resolution 20-21]
+highway = tertiary  [0x010e0e resolution 24 continue with_actions]
+highway = tertiary  [0x010f12 resolution 22-23 continue with_actions]
+highway = tertiary  [0x010f13 resolution 20-21]
 
 
 # Strasse an und in Wohngebieten:

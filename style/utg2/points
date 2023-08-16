@@ -374,8 +374,7 @@ highway = sacscalet2t3 & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [
 
 # Panneau d'information
 information=guidepost
-{ name '${name} - ${operator} - ${description} '
-| '${name} - ${description}'
+{ name '${name} - ${operator}'
 | '${name}'
 | '${description}'
 | '${operator}'
@@ -553,20 +552,20 @@ natural = scree & name = * {name "${name} (Pierrier)"} [0x6600 resolution 24]
 natural = spring {name "${name} (Source)" | "Source"} [0x6511 resolution 24]
 
 # Großer Stein, Findling. [point]
-# natural = stone {name "${name} ($__STONE__)" | "$__STONE__"} [0x6614 resolution 24]
+natural = stone {name "${name} (Rocher/Pierre)" | "Rocher/Pierre"} [0x6614 resolution 24]
 
 # Einzelner oder signifikanter Baum. [point]
 # Der Baum muss als Landmarke ausgewiesen sein.
 natural = tree & denotation = landmark {name "${name} (Arbre)" | "$__TREE__"} [0x6619 resolution 24]
 
 # Vulkan, entweder ruhend, erloschen oder aktiv. [point]
-natural = volcano {name "${name} (Volcan)" | "$__VOLCANO__"} [0x2c0c resolution 24]
+natural = volcano {name "${name} (Volcan)" | "Volcan"} [0x2c0c resolution 24]
 
 # Wasser, Seen, Teiche usw. [point, closedway]
 natural = water & name = * {name "${name} (Lac/Etang)"} [0x650D resolution 24]
 
 # Wasserfall. [point]
-natural = waterfall {name "${name} ($__WATERFALL__)" | "Cascade"} [0x6508 resolution 24]
+natural = waterfall {name "${name} (Cascade)" | "Cascade"} [0x6508 resolution 24]
 
 # Feuchtgebiet wie Sumpf, Moor, Ried, Marsch, Aue, Röhricht, Watt, Salzwiese oder Mangrove.
 # Naturbelassene Flächen, die Überflutungen ausgesetzt sind oder staunasse Böden aufweisen. [point, closedway]
