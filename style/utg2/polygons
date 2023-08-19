@@ -425,10 +425,10 @@ leisure = nature_reserve & (
 	|name = "Réserve naturelle de l'étang de Haute-Jarrie"
 	|name = "Réserve naturelle géologique de Pontlevoy"
 	|name = "Réserve naturelle du domaine de Beauguillot")
-	[0x58 resolution 18-22 continue]
+	{name '${name}'} [0x58 resolution 18-22 continue]
 
 # Réserves biologiques potentiellement interdites périodiquement aux VTT
-protection_title="Réserve biologique intégrale" | protection_title="Réserve naturelle nationale" [0x57 resolution 18-22 continue]
+protection_title="Réserve biologique intégrale" | protection_title="Réserve naturelle nationale" {name '${name}'} [0x57 resolution 18-22 continue]
 
 # Naturschutzgebiet (NSG), dieser Tag ist ausschließlich für Naturschutzgebiete zu nutzen.
 # Andere Gebiete – wie z. B. Nationalpark, Biosphärenreservat, Landschaftsschutzgebiet, etc.
