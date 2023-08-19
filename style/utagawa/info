@@ -6,13 +6,13 @@
 # ---------------------------------------
 
 # A short one line description of the Style:
-summary: MapUtagawa2
+summary: MapUtagawa
 
 # Version of the Style itself:
-version=1.0
+version=2.0
 
 # A longer description of the Style:
 description {
-Dieser Regelsatz beruecksichtigt Informationen die primaer fuer eine Freizeitkarte relevant sind.
+Carte spéciale VTT, by UtagawaVTT.com
 }
 
