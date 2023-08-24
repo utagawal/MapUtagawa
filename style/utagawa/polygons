@@ -490,7 +490,7 @@ natural = wood & ( wood = mixed | leaf_type = mixed) [0x52 resolution 17]
 landuse = forest | natural = wood [0x52 resolution 17]
 
 # Garagen auf größerer Fläche, Garagenhof (nicht für Einzelgarage) (s.a. amenity=parking). [closedway]
-landuse = garages [0x05 resolution 20]
+# landuse = garages [0x05 resolution 20]
 
 # Rasenfläche (vorzugsweise innerorts). [point, closedway]
 landuse = grass [0x17 resolution 20]
@@ -512,7 +512,7 @@ landuse = industrial [0x0c resolution 17]
 landuse = landfill [0x2a resolution 20]
 
 # Wiese (meist außerorts; nicht für öffentliche Zwecke). [point, closedway]
-landuse = meadow [0x17 resolution 20 continue]
+landuse = meadow [0x17 resolution 20]
 
 # Militärisch genutztes Gebiet (Kasernen, Truppenübungsplätze, use.). [point, closedway]
 landuse = military [0x04 resolution 17]
@@ -603,7 +603,7 @@ natural = scrub [0x4f resolution 20]
 # Wasser - Seen, Teiche usw. [point, closedway]
 #natural = water [0x3c resolution 17]
 # Starting at 16 for overviewmap
-natural = water [0x3c resolution 16]
+natural = water {name '${name}'} [0x3c resolution 16]
 
 # Watt, Priele
 natural = wetland & wetland = tidalflat {set name = ''} [0x56 resolution 20]
@@ -837,7 +837,7 @@ amenity = hospital [0x0b resolution 20]
 # amenity = marketplace
 
 # Parkplatz. [point, closedway]
-amenity = parking [0x05 resolution 20]
+# amenity = parking [0x05 resolution 20]
 
 # Anbetungsort (Kirche, Synagoge, Moschee, …). [point, closedway]
 # here we just handle those without a building=* tag (those are handled already)
@@ -978,7 +978,7 @@ natural = land [0x3a resolution 17]
 # deactivated include 'compat_polygons'; 
 name=* { name '${name}' }
 mkgmap:default_name=* { name '${mkgmap:default_name}' }
-mkmap:display_name=* { addlabel '${mkgmap:display_name|subst:;=>/}' }
+mkgmap:display_name=* { addlabel '${mkgmap:display_name|subst:;=>/}' }
 
 mkgmap:label:1!=* & ref=* { addlabel '${ref|part:;:1}' }
 mkgmap:label:1!=* & int_ref=* { addlabel '${int_ref|part:;:1}' }

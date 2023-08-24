@@ -230,13 +230,19 @@
 # Macro variable expansion
 #
 # Link: www.synesys.com/Downloads/ppp.html
-#
-# Optionale Features:
-# - WINTERSPORT: Linien für Wintersportaktivitäten (Pisten, Loipen, ...)
-# - EXTENDEDROUTING: Routing auch über (Berg-)Wanderwege der Klassen T3-T6
 # -------------------------------------------------
 
-
+# ------------------------------------------------------------
+# Name standardization
+# ------------------------------------------------------------
+loc_name=* 								{set name='${loc_name}'}
+int_name=* 								{set name='${int_name}'}
+int_name!=* & name:en=* 				{set name='${name:en}'}
+int_name!=* & name:en!=* & name:de=* 	{set name='${name:de}'}
+name:mtb=*								{set name='${name:mtb}'}
+mtb:name=*								{set name='${mtb:name}'}
+name_mtb=*								{set name='${name_mtb}'}
+mtb_name=*								{set name='${mtb_name}'}
 
 # -------------------------------------------------
 # Adress- / Indexsuche:
@@ -370,8 +376,6 @@ leisure = nature_reserve [0x01210f resolution 20-23 continue]
 # (New tagging includes land area also... therefore display of it needs to change: will be moved to 'lines')
 leisure = marina [0x01201e resolution 23 continue]
 
-
-
 # -----------------------------------------------------------------
 # NEUE MAXSPEED BERECHNUNG
 # Setzen der road-class wenn maxspeed gegeben ist
@@ -390,9 +394,6 @@ maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 60            { se
 maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 40            { set mkgmap:road-speed-class = 2 }
 maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() > 30            { set mkgmap:road-speed-class = 1 }
 maxspeed = * & mkgmap:road-speed-class != * & maxspeedkmh() < 11            { set mkgmap:road-speed-class = 0 }
-
-
-
 
 
 # ------------------------------------------------------------------
@@ -421,10 +422,6 @@ highway = secondary_link {set highway = secondary}
 # Auffahrt zu einer Kreisstrasse:
 # -------------------------------
 highway = tertiary_link {set highway = tertiary}
-
-
-
-
 
 
 # ====================================================================================================
@@ -479,8 +476,6 @@ bicycle = designated                     {set bicycle = yes; set bfdesignated = 
 # Highwayspezifisches hinzufuegen
 # -------------------------------
 
-
-
 # generell fuer das Routing gesperrt
 highway = proposed | highway = raceway | highway = no | highway = crossing | highway =  traffic_signals | highway = platform | highway = streetlamp | highway = emergency_access_point | highway = stop | highway = passing_place| highway = incline_steep | highway = incline | highway = milestone | highway = access_ramp {set access = no; set motorcar = no; set bicycle = no; set foot = no}
 highway = via_ferrata | highway = construction  {set access = no; set motorcar = no; set bicycle = no; set foot = no}
@@ -500,58 +495,45 @@ highway = bridleway {add motorcar = no; add bicycle = no; add foot = no}
 # Wege und Bereiche speziell fuer Fussgaenger: generell fuer Autos und Radfahrer gesperrt
 highway = footway | highway = elevator | highway = steps | highway = pedestrian {add motorcar = no; add bicycle = no}
 
+# Re-Format unauthorized MTB stuff
+mtb = designated {set bicycle = designated; delete mtb}
+mtb = yes {set bicycle = yes; delete mtb}
+
 #0x12114 Sentiers VTT non praticables ou interdits
 highway = sacscalet4t5t6 [0x12114 resolution 21]
-highway = sacscalet2t3 [0x12114 resolution 21]
-(highway = bridleway | highway = path | highway = track) & ( mtb:scale = 5 | mtb:scale = 6) [0x12114 resolution 22]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & ( mtb:scale = 5 | mtb:scale = 6) [0x12114 resolution 24 continue]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & bicycle = no & mtb:scale != * & mtb:type != * [0x12114 resolution 24 continue]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * [0x12114 resolution 24 continue]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle = no & mtb:scale != * & mtb:type != * [0x12114 resolution 24 continue]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes) & bicycle = no & mtb:scale != * & mtb:type != * [0x12114 resolution 24 continue]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes | bridge != no | tunnel != no) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * [0x12114 resolution 24 continue]
+
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & ( mtb:scale = 5 | mtb:scale = 6) [0x12116 resolution 22-23]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & bicycle = no & mtb:scale != * & mtb:type != * [0x12116 resolution 22-23]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * [0x12116 resolution 22-23]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle = no & mtb:scale != * & mtb:type != * [0x12116 resolution 22-23]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes) & bicycle = no & mtb:scale != * & mtb:type != * [0x12116 resolution 22-23]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes | bridge != no | tunnel != no) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * [0x12116 resolution 22-23]
+
+
 # (highway = path | highway = track) & bicycle != yes & bicycle != designated & mtb:scale != * & foot = yes [0x12114 resolution 22]
-(highway = bridleway | highway = path | highway = track) & bicycle = no & mtb:scale != * [0x12114 resolution 22]
-(highway = bridleway | highway = path | highway = track) & ( bicycle != yes | bicycle != designated) & access = no & mtb:scale != * [0x12114 resolution 22]
-(highway = bridleway | highway = path | highway = track) & bicycle = no & access = no & mtb:scale != * [0x12114 resolution 22]
-
 # highway = footway & bicycle != yes & mtb:scale != * [0x12114 resolution 24]
-
-
-# # Bergwege; ueber Wege der Kategorien 3-6 wird aus Sicherheitsgruenden nicht geroutet; Ausnahme: T36ROUTING ist explizit definiert
-# #ifdef T36ROUTING
-#   highway = path & (sac_scale = hiking                    | sac_scale = mountain_hiking)         {set highway = bergweg12}
-#   highway = path & (sac_scale = demanding_mountain_hiking | sac_scale = alpine_hiking)           {set highway = bergweg34}
-#   highway = path & (sac_scale = demanding_alpine_hiking   | sac_scale = difficult_alpine_hiking) {set highway = bergweg56}
-# #else
-#   highway = path & (sac_scale = hiking                    | sac_scale = mountain_hiking)         {set highway = bergweg12}
-#   highway = path & (sac_scale = demanding_mountain_hiking | sac_scale = alpine_hiking)           {set highway = bergweg34; set access = no; set motorcar = no; set bicycle = no; set foot = no}
-#   highway = path & (sac_scale = demanding_alpine_hiking   | sac_scale = difficult_alpine_hiking) {set highway = bergweg56; set access = no; set motorcar = no; set bicycle = no; set foot = no}
-# #endif
 
 # Bergwege; T4 - T6 für routing aus Sicherheitsgründen gesperrt; Ausnahme: EXTENDEDROUTING ist explizit definiert
 # Alpine Trails; T4 - T6 expluded from routing for security reasons; Exception: EXTENDEDROUTING set
-#ifdef EXTENDEDROUTING
-  # T1
-  highway = path & sac_scale = hiking                     {set highway = sacscalet1;        set name = '${name} (T1)' | '$__ALPINETRAIL__ (T1)' }
-  # T2
-  highway = path & sac_scale = mountain_hiking            {set highway = sacscalet2t3;      set name = '${name} (T2)' | '$__ALPINETRAIL__ (T2)' }
-  # T3
-  highway = path & sac_scale = demanding_mountain_hiking  {set highway = sacscalet2t3;      set name = '${name} (T3)' | '$__ALPINETRAIL__ (T3)' }
-  # T4
-  highway = path & sac_scale = alpine_hiking              {set highway = sacscalet4t5t6;    set name = '${name} (T4)' | '$__ALPINETRAIL__ (T4)' }
-  # T5
-  highway = path & sac_scale = demanding_alpine_hiking    {set highway = sacscalet4t5t6;    set name = '${name} (T5)' | '$__ALPINETRAIL__ (T5)' }
-  # T6
-  highway = path & sac_scale = difficult_alpine_hiking    {set highway = sacscalet4t5t6;    set name = '${name} (T6)' | '$__ALPINETRAIL__ (T6)' }
-#else
-  # T1
-  # highway = path & sac_scale = hiking                     {set highway = sacscalet1;        set name = '${name} (T1)' | '$__ALPINETRAIL__ (T1)' }
-  # T2
-  #highway = path & sac_scale = mountain_hiking            {set highway = sacscalet2t3;      set name = '${name} (T2)' | '$__ALPINETRAIL__ (T2)' }
-  # T3
-  # highway = path & sac_scale = demanding_mountain_hiking  {set highway = sacscalet2t3;      set name = '${name} (T3)' | '$__ALPINETRAIL__ (T3)' }
-  # T4
-  # highway = path & sac_scale = alpine_hiking              {set highway = sacscalet4t5t6;    set name = '${name} (T4)' | '$__ALPINETRAIL__ (T4)'; set access = no; set motorcar = no; set bicycle = no; set foot = no}
-  # T5
-  # highway = path & sac_scale = demanding_alpine_hiking    {set highway = sacscalet4t5t6;    set name = '${name} (T5)' | '$__ALPINETRAIL__ (T5)'; set access = no; set motorcar = no; set bicycle = no; set foot = no}
-  # T6
-  # highway = path & sac_scale = difficult_alpine_hiking    {set highway = sacscalet4t5t6;    set name = '${name} (T6)' | '$__ALPINETRAIL__ (T6)'; set access = no; set motorcar = no; set bicycle = no; set foot = no}
-#endif
+
+# T1
+highway = path & sac_scale = hiking                     {set highway = sacscalet1;       set name = '${name} (T1)' | '(T1)' }
+# T2
+highway = path & sac_scale = mountain_hiking            {set highway = sacscalet2t3;     set name = '${name} (T2)' | 'T2)' }
+# T3
+highway = path & sac_scale = demanding_mountain_hiking  {set highway = sacscalet2t3;     set name = '${name} (T3)' | '(T3)' }
+# T4
+highway = path & sac_scale = alpine_hiking              {set highway = sacscalet4t5t6;   set name = '${name} (T4)' | '(T4)'; set access = no; set motorcar = no; set bicycle = no; set foot = no}
+# T5
+highway = path & sac_scale = demanding_alpine_hiking    {set highway = sacscalet4t5t6;   set name = '${name} (T5)' | '(T5)'; set access = no; set motorcar = no; set bicycle = no; set foot = no}
+# T6
+highway = path & sac_scale = difficult_alpine_hiking    {set highway = sacscalet4t5t6;   set name = '${name} (T6)' | '(T6)'; set access = no; set motorcar = no; set bicycle = no; set foot = no}
 
 # access
 highway = * & (access = designated | access = permissive | access = destination | access = customers | access = official | access = public  | access = residents  | access = customer  | access = residential) {set access = yes}
@@ -702,7 +684,8 @@ highway = motorway & fzkrouting != yes {set name = '${ref}' | ''; set fzkrouting
 # trunk
 # --------------------------------------------
 # 0x02 = Bitmap 2 (transparent, nur fuer Routing, Label)
-highway = trunk & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x02 road_class=4 road_speed=6 resolution 24 continue with_actions]
+# highway = trunk & fzkrouting != yes {set name = '${name}' | '${ref}' | ''; set fzkrouting=yes} [0x02 road_class=4 road_speed=6 resolution 24 continue with_actions]
+highway = trunk & fzkrouting != yes {set fzkrouting=yes} [0x02 road_class=4 road_speed=6 resolution 24 continue with_actions]
 
 # --------------------------------------------
 # primary
@@ -822,12 +805,16 @@ highway = trunk & man_made = dyke               [0x011f03 resolution 24 continue
 # 0x010f0c = 2/1 (mittel, NoLabel)
 # 0x010f0d = 1/1 (schmal, NoLabel)
 # 0x010e0b = 1 (sehr schmal, NoLabel)
-highway = trunk {set name = '${name}' | '${ref}' | ''} [0x011f14 resolution 24 continue with_actions]
-highway = trunk {set name = '${name}' | '${ref}' | ''} [0x012100 resolution 23-23 continue with_actions]
-highway = trunk {set name = '${ref}' | ''}             [0x010f0c resolution 22-22 continue with_actions]
-highway = trunk {set name = '${ref}' | ''}             [0x010f0d resolution 20-21 continue with_actions]
-highway = trunk {set name = '${ref}' | ''}             [0x010e0b resolution 18-19]
-
+# highway = trunk {set name = '${name}' | '${ref}' | ''} [0x011f14 resolution 24 continue with_actions]
+# highway = trunk {set name = '${name}' | '${ref}' | ''} [0x012100 resolution 23-23 continue with_actions]
+# highway = trunk {set name = '${ref}' | ''}             [0x010f0c resolution 22-22 continue with_actions]
+# highway = trunk {set name = '${ref}' | ''}             [0x010f0d resolution 20-21 continue with_actions]
+# highway = trunk {set name = '${ref}' | ''}             [0x010e0b resolution 18-19]
+highway = trunk  [0x011f14 resolution 24 continue with_actions]
+highway = trunk  [0x012100 resolution 23-23 continue with_actions]
+highway = trunk  [0x010f0c resolution 22-22 continue with_actions]
+highway = trunk  [0x010f0d resolution 20-21 continue with_actions]
+highway = trunk  [0x010e0b resolution 18-19]
 
 # Bundesstrasse:
 # --------------
@@ -1050,8 +1037,388 @@ highway = living_street & (area != * | area = no) [0x010f04 resolution 21-22]
 
 
 #======================================================================================
-# Beginn Fahrrad / Fuss / Wald / Berg / etc. Wege
+# Beginn MTB / Fahrrad / Fuss / Wald / Berg / etc. Wege
 #======================================================================================
+
+# 0x12115 routes balisés VTT
+highway=* & c_route_mtb = yes & (c_route_hiking = no | c_route_hiking != *) {name '${name}' | '${ref}'} [0x12115 resolution 22]
+
+## MTB naming Section
+mbt:scale=* {add mtb:scale = '${mbt:scale}'}
+mtb_scale=* {add mtb:scale = '${mtb_scale}'}
+
+mtb:scale="0-1" {set mtb:scale="0+"}
+mtb:scale="1-2" {set mtb:scale="1+"}
+mtb:scale="2-3" {set mtb:scale="2+"}
+mtb:scale="3-4" {set mtb:scale="3+"}
+mtb:scale="4-5" {set mtb:scale="4+"}
+
+mtb:scale="0/1" {set mtb:scale="0+"}
+mtb:scale="1/2" {set mtb:scale="1+"}
+mtb:scale="2/3" {set mtb:scale="2+"}
+mtb:scale="3/4" {set mtb:scale="3+"}
+mtb:scale="4/5" {set mtb:scale="4+"}
+
+mtb:scale="0;1" {set mtb:scale="0+"}
+mtb:scale="1;2" {set mtb:scale="1+"}
+mtb:scale="2;3" {set mtb:scale="2+"}
+mtb:scale="3;4" {set mtb:scale="3+"}
+mtb:scale="4;5" {set mtb:scale="4+"}
+
+mtb:scale:uphill="0-1" {set mtb:scale:uphill="0+"}
+mtb:scale:uphill="1-2" {set mtb:scale:uphill="1+"}
+mtb:scale:uphill="2-3" {set mtb:scale:uphill="2+"}
+mtb:scale:uphill="3-4" {set mtb:scale:uphill="3+"}
+mtb:scale:uphill="4-5" {set mtb:scale:uphill="4+"}
+
+mtb:scale:uphill="0/1" {set mtb:scale:uphill="0+"}
+mtb:scale:uphill="1/2" {set mtb:scale:uphill="1+"}
+mtb:scale:uphill="2/3" {set mtb:scale:uphill="2+"}
+mtb:scale:uphill="3/4" {set mtb:scale:uphill="3+"}
+mtb:scale:uphill="4/5" {set mtb:scale:uphill="4+"}
+
+mtb:scale:uphill="0;1" {set mtb:scale:uphill="0+"}
+mtb:scale:uphill="1;2" {set mtb:scale:uphill="1+"}
+mtb:scale:uphill="2;3" {set mtb:scale:uphill="2+"}
+mtb:scale:uphill="3;4" {set mtb:scale:uphill="3+"}
+mtb:scale:uphill="4;5" {set mtb:scale:uphill="4+"}
+
+
+# make tracktype easier to read.
+tracktype=grade0 {set tracktype=0}
+tracktype=grade1 {set tracktype=1}
+tracktype=grade2 {set tracktype=2}
+tracktype=grade3 {set tracktype=3}
+tracktype=grade4 {set tracktype=4}
+tracktype=grade5 {set tracktype=5}
+tracktype=grade6 {set tracktype=6}
+
+tracktype="grade0;grade1" {set tracktype=0}
+tracktype="grade1;grade2" {set tracktype=1}
+tracktype="grade2;grade3" {set tracktype=2}
+tracktype="grade3;grade4" {set tracktype=3}
+tracktype="grade4;grade5" {set tracktype=4}
+tracktype="grade5;grade6" {set tracktype=6}
+
+tracktype="grade1;grade0" {set tracktype=0}
+tracktype="grade2;grade1" {set tracktype=1}
+tracktype="grade3;grade2" {set tracktype=2}
+tracktype="grade4;grade3" {set tracktype=3}
+tracktype="grade5;grade4" {set tracktype=4}
+tracktype="grade6;grade5" {set tracktype=6}
+
+tracktype=* & tracktype!=0 & tracktype!=1 & tracktype!=2 & tracktype!=3 & tracktype!=4 & tracktype!=5 & tracktype!=6 {delete tracktype}
+
+highway=* & (usability=1 | usability=2) & mtb:scale:uphill!=* & mtb:scale!=*  {add tracktype=1}
+highway=* & usability=3 				& mtb:scale:uphill!=* & mtb:scale!=*  {add taxi=no; add tracktype=2}
+highway=* & usability=4 				& mtb:scale:uphill!=* & mtb:scale!=*  {add taxi=no; add tracktype=3; add mkgmap:unpaved=1}
+highway=* & usability=5 				& mtb:scale:uphill!=* & mtb:scale!=*  {add taxi=no; add tracktype=4; add mkgmap:unpaved=1}
+highway=* & usability=6 				& mtb:scale:uphill!=* & mtb:scale!=*  {add taxi=no;  set tracktype=5; add mkgmap:unpaved=1}
+
+highway=* & trail_visibility=intermediate 	& mtb:scale!=* & mtb:scale:uphill!=* {add taxi=no; add tracktype=3; add mkgmap:unpaved=1}
+highway=* & trail_visibility=bad 			& mtb:scale!=* & mtb:scale:uphill!=* {add taxi=no; add tracktype=4; add mkgmap:unpaved=1}
+highway=* & trail_visibility=no 			& mtb:scale!=* & mtb:scale:uphill!=* {add taxi=no; add mkgmap:unpaved=1}
+highway=* & trail_visibility=horrible 		& mtb:scale!=* & mtb:scale:uphill!=* {add taxi=no; add mkgmap:unpaved=1}
+highway=* & trail_visibility=no 			& mtb:scale!=* & mtb:scale:uphill!=* & sac_scale!=* {add tracktype=5}
+highway=* & trail_visibility=horrible 		& mtb:scale!=* & mtb:scale:uphill!=* & sac_scale!=* {add tracktype=5}
+
+sac:scale=*  {add sac_scale = '${sac:scale}'}
+sac_scale=T1 {set sac_scale=hiking}
+sac_scale=T2 {set sac_scale=mountain_hiking}
+sac_scale=T3 {set sac_scale=demandin_mountain_hiking}
+sac_scale=T4 {set sac_scale=alpine_hiking}
+sac_scale=T5 {set sac_scale=demanding_alpine_hiking}
+sac_scale=T6 {set sac_scale=difficult_alpine_hiking}
+
+sac_scale=* & sac_scale!=hiking & sac_scale!=mountain_hiking & sac_scale!=demanding_mountain_hiking & sac_scale!=alpine_hiking & sac_scale!=demanding_alpine_hiking & sac_scale!=difficult_alpine_hiking {delete sac_scale}
+
+smoothnes=* {add smoothness = '${smoothnes}'}
+smothness=* {add smoothness = '${smothness}'}
+
+smoothness=excelent {set smoothness=excellent}
+smoothness=medium {set smoothness=intermediate}
+smoothness=* & smoothness!=excellent & smoothness!=very_good & smoothness!=good & smoothness!=intermediate & smoothness!=bad & smoothness!=very_bad & smoothness!=horrible & smoothness!=very_horrible & smoothness!=impassable {delete smoothness}
+
+# Make steep pathes downhill only
+mtb:scale=0 & incline>20 & mtb:scale:uphill!=1 & mtb:scale:uphill!=2 & mtb:scale:uphill!=3 {set oneway=-1; set copy=98; set copy1=yes}
+mtb:scale=1 & incline>15 & mtb:scale:uphill!=1 & mtb:scale:uphill!=2 {set oneway=-1; set copy=98; set copy1=yes}
+mtb:scale=2 & incline>10 & mtb:scale:uphill!=1 & mtb:scale:uphill!=2 {set oneway=-1; set copy=98; set copy1=yes}
+mtb:scale=3 & incline>10 & mtb:scale:uphill!=1 & mtb:scale:uphill!=2 {set oneway=-1; set copy=98; set copy1=yes} 
+mtb:scale=4 & incline>10 & mtb:scale:uphill!=1 & mtb:scale:uphill!=2 {set oneway=-1; set copy=98; set copy1=yes}
+mtb:scale=5 & incline>10 & mtb:scale:uphill!=1 & mtb:scale:uphill!=2 {set oneway=-1; set copy=98; set copy1=yes}
+
+mtb:scale=0 & incline<-20 & mtb:scale:uphill!=1 & mtb:scale:uphill!=2 & mtb:scale:uphill!=3	{set oneway=yes; set copy=99; set copy1=yes}
+mtb:scale=1 & incline<-15 & mtb:scale:uphill!=1 & mtb:scale:uphill!=2 {set oneway=yes; set copy=99; set copy1=yes}
+mtb:scale=2 & incline<-10 & mtb:scale:uphill!=1 & mtb:scale:uphill!=2 {set oneway=yes; set copy=99; set copy1=yes}
+mtb:scale=3 & incline<-10 & mtb:scale:uphill!=1 & mtb:scale:uphill!=2 {set oneway=yes; set copy=99; set copy1=yes} 
+mtb:scale=4 & incline<-10 & mtb:scale:uphill!=1 & mtb:scale:uphill!=2 {set oneway=yes; set copy=99; set copy1=yes}
+mtb:scale=5 & incline<-10 & mtb:scale:uphill!=1 & mtb:scale:uphill!=2 {set oneway=yes; set copy=99; set copy1=yes}
+
+
+( mtb:scale:uphill=2 | mtb:scale:uphill=3 ) & ( incline=negative | incline=down | incline=- | incline<0 ) 	{add taxi=no; set copy=99; set copy1=yes; add mkgmap:unpaved=1}
+( mtb:scale:uphill=2 | mtb:scale:uphill=3 ) & ( incline=positive | incline=up | incline=+ | incline>0 ) 	{add taxi=no; set copy=98; set copy1=yes; add mkgmap:unpaved=1}
+( mtb:scale:uphill=4 | mtb:scale:uphill=5 ) & ( incline=negative | incline=down | incline=- | incline<0 ) 	{add taxi=no; set oneway=yes; set copy=99; set copy1=yes; add mkgmap:unpaved=1}
+( mtb:scale:uphill=4 | mtb:scale:uphill=5 ) & ( incline=positive | incline=up | incline=+ | incline>0 ) 	{add taxi=no; set oneway=-1; set copy=98; set copy1=yes; add mkgmap:unpaved=1}
+
+
+# Map smoothness to tracktype
+smoothness=excellent & tracktype=2 {delete smoothness; set tracktype=1}
+smoothness=excellent & tracktype=3 {delete smoothness; set tracktype=1}
+smoothness=excellent & tracktype=4 {delete smoothness; set tracktype=1; set taxi=no}
+smoothness=excellent & tracktype=5 {delete smoothness; set tracktype=2}
+smoothness=excellent {set tracktype=1}
+
+smoothness=very_good & tracktype=2 {delete smoothness; set tracktype=1}
+smoothness=very_good & tracktype=3 {delete smoothness; set tracktype=1; set taxi=no}
+smoothness=very_good & tracktype=4 {delete smoothness; set tracktype=1; set taxi=no}
+smoothness=very_good & tracktype=5 {delete smoothness; set tracktype=2}
+smoothness=very_good {set tracktype=1}
+
+smoothness=good & tracktype=2 {delete smoothness; set tracktype=1}
+smoothness=good & tracktype=3 {delete smoothness; set tracktype=1; set taxi=no}
+smoothness=good & tracktype=4 {delete smoothness; set tracktype=2}
+smoothness=good & tracktype=5 {delete smoothness; set tracktype=2}
+smoothness=good {set tracktype=1}
+
+smoothness=intermediate & tracktype=2 {delete smoothness; set taxi=no}
+smoothness=intermediate & tracktype=3 {delete smoothness; set tracktype=2}
+smoothness=intermediate & tracktype=4 {delete smoothness; set tracktype=2}
+smoothness=intermediate & tracktype=5 {delete smoothness; set tracktype=3}
+smoothness=intermediate {set tracktype=1; set taxi=no}
+
+smoothness=bad & tracktype=1 {delete smoothness; set tracktype=1; set taxi=no}
+smoothness=bad & tracktype=2 {delete smoothness; set taxi=no}
+smoothness=bad & tracktype=3 {delete smoothness; set tracktype=2; set taxi=no}
+smoothness=bad & tracktype=4 {delete smoothness; set tracktype=2; set taxi=no; add mkgmap:unpaved=1}
+smoothness=bad & tracktype=5 {delete smoothness; set tracktype=3; set taxi=no}
+smoothness=bad {set tracktype=2; set taxi=no}
+
+smoothness=very_bad & tracktype=1 {delete smoothness; set tracktype=2}
+smoothness=very_bad & tracktype=2 {delete smoothness}
+smoothness=very_bad & tracktype=3 {delete smoothness}
+smoothness=very_bad & tracktype=4 {delete smoothness; set tracktype=3}
+smoothness=very_bad & tracktype=5 {delete smoothness; set tracktype=3}
+smoothness=very_bad {set tracktype=3}
+
+smoothness=horrible & tracktype=1 {delete smoothness; set tracktype=2}
+smoothness=horrible & tracktype=2 {delete smoothness; set tracktype=2; add mkgmap:unpaved=1}
+smoothness=horrible & tracktype=3 {delete smoothness}
+smoothness=horrible & tracktype=4 {delete smoothness; set tracktype=3}
+smoothness=horrible & tracktype=5 {delete smoothness; set tracktype=4}
+smoothness=horrible {set tracktype=3}
+
+smoothness=very_horrible & tracktype=1 {delete smoothness; set tracktype=2; add mkgmap:unpaved=1}
+smoothness=very_horrible & tracktype=2 {delete smoothness; set tracktype=3}
+smoothness=very_horrible & tracktype=3 {delete smoothness}
+smoothness=very_horrible & tracktype=4 {delete smoothness; set tracktype=3}
+smoothness=very_horrible & tracktype=5 {delete smoothness; set tracktype=4}
+smoothness=very_horrible {set tracktype=4}
+
+smoothness=impassable & tracktype=1 {delete smoothness; set tracktype=2; add mkgmap:unpaved=1}
+smoothness=impassable & tracktype=2 {delete smoothness; set tracktype=3}
+smoothness=impassable & tracktype=3 {delete smoothness; set tracktype=4}
+smoothness=impassable & tracktype=4 {delete smoothness; set tracktype=5}
+smoothness=impassable & tracktype=5 {delete smoothness; set tracktype=6}
+smoothness=impassable & tracktype=6 {delete smoothness}
+smoothness=impassable {set tracktype=5}
+
+# Set unpaved, toll and taxi=no for tracktype and sac_scale and smoothness
+highway=* & tracktype=2 {set taxi=no}
+(highway=* & (tracktype=3 | tracktype=4 | tracktype=5 | tracktype=6 | (sac_scale=* & sac_scale!=hiking))) {set taxi=no ; add mkgmap:unpaved=1}
+highway=* & mtb:scale!=* & tracktype!=1 & tracktype!=2 & tracktype!=3 & tracktype!=4 & tracktype!=5 & (sac_scale=mountain_hiking | sac_scale=demanding_mountain_hiking | sac_scale=difficult_mountain_hiking | sac_scale=alpine_hiking | sac_scale=demanding_alpine_hiking | sac_scale=difficult_alpine_hiking ) {set toll=yes; set mkgmap:unpaved=1} 
+
+highway=* & mtb:scale!=* & tracktype!=1 & tracktype!=2 & tracktype!=3 & tracktype!=4 & tracktype=5 & (sac_scale=mountain_hiking | sac_scale=demanding_mountain_hiking | sac_scale=difficult_mountain_hiking | sac_scale=alpine_hiking | sac_scale=demanding_alpine_hiking | sac_scale=difficult_alpine_hiking ) {set mkgmap:unpaved=1} 
+
+
+# Map surface to tracktype
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=compacted {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=compacted_gravel {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=dirt {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=mud {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=sand {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=earth {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=ground {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=grass {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=pebblestone {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=grass_paver {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=paving_stones {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=paved {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface="dirt road" {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=dirt_road {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=unsealed {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=unsurfaced {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=ash {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=unpaved {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=sidewalk {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=cobblestone {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=bricks {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=block {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=wood {add tracktypeadded=yes}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=stone {add tracktypeadded=yes}
+
+tracktype!=* & surface=asphalt {add tracktype=1}
+tracktype!=* & surface=concrete {add tracktype=1}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=compacted {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=compacted_gravel {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=dirt {add tracktype=3}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=mud {add tracktype=3}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=sand {add tracktype=4}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=earth {add tracktype=3}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=ground {add tracktype=3}
+tracktype!=* & surface=schotter {add tracktype=2}
+tracktype!=* & surface=gravel {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=grass {add tracktype=4}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=grit {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=pebblestone {add tracktype=3}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=grass_paver {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=paving_stones {add tracktype=1}
+mtb:scale!=* & tracktype!=* & sac_scale!=* & surface=paved {add tracktype=1}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface="dirt road" {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=dirt_road {add tracktype=2}
+tracktype!=* & surface=fine_gravel {add tracktype=2}
+tracktype!=* & surface="fine gravel" {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=compacted {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=concrete_plates {set tracktype=1}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=unsealed {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=unsurfaced {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=ash {add tracktype=3}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=unpaved {delete surface}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=sidewalk {add tracktype=1}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=cobblestone {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=bricks {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=block {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=wood {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & surface=stone {add tracktype=2}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & tracktypeadded!=yes & surface=* & surface!=asphalt & surface!=concrete & surface!=gravel {delete surface}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & ice_road=yes {add tracktype=3}
+mtb:scale!=* & sac_scale!=* & tracktype!=* & winter_road=yes {add tracktype=2}
+
+# Delete sac_scale entered by noobs
+sac_scale=hiking & tracktype<2 {delete sac_scale}
+
+sac_scale=mountain_hiking & tracktypeadded!=yes & tracktype<3 	{delete sac_scale}
+sac_scale=mountain_hiking & mtb:scale<1  						{delete sac_scale; set tracktypeadded=reversed}
+
+sac_scale=demanding_mountain_hiking & tracktypeadded!=yes & tracktype<4 {delete sac_scale}
+sac_scale=demanding_mountain_hiking & mtb:scale<2 						{delete sac_scale; set tracktypeadded=reversed}
+
+( sac:scale=alpine_hiking | sac_scale=demanding_alpine_hiking | sac_scale=difficult_alpine_hiking ) & tracktypeadded!=yes & tracktype<5 	{delete sac_scale}
+( sac:scale=alpine_hiking ) 																		& tracktype<3 							{delete sac_scale; set tracktypeadded=reversed}
+( sac:scale=alpine_hiking | sac_scale=demanding_alpine_hiking | sac_scale=difficult_alpine_hiking ) & ( mtb:scale<3 | mtb:scale:uphill<4) 	{delete sac_scale; set tracktypeadded=reversed}
+
+
+# Delete some mtb:scale values if not needed and reclassify others.
+( mtb:scale=0 | mtb:scale="0-" ) & ( tracktype=1 | smoothness=excellent | smoothness=very_good | smoothness=good | smoothness=intermediate | surface=asphalt | surface=concrete ) {delete mtb:scale}
+mtb:scale=0 & ( tracktype=2 | tracktype=3 |  smoothness=bad | smoothness=very_bad | surface=gravel ) {set mtb:scale="0-"}
+mtb:scale=0 & ( tracktype=5 | smoothness=very_horrible | smoothness=impassable ){set mtb:scale="0+"}
+
+
+
+# Add mtb:scale(:uphill) to name
+
+mtb:scale=* & mtb:scale:uphill=*  & (route=mtb | extremecarver=mr){set name='MR${mtb:scale}${mtb:scale:uphill} ${name}' | 'MR${mtb:scale}${mtb:scale:uphill} '}
+mtb:scale=* & mtb:scale:uphill!=* & (route=mtb | extremecarver=mr){set name='MR${mtb:scale}. ${name}' | 'MR${mtb:scale}.'}
+(route=mtb | extremecarver=mr) & mtb:scale!=* & mtb:scale:uphill=* {set name='MRx${mtb:scale:uphill} ${name}' |'MRx${mtb:scale:uphill}'}
+
+mtb:scale=* & mtb:scale:uphill=* & route!=mtb & extremecarver6!=mr {set name='M${mtb:scale}${mtb:scale:uphill} ${name}' | 'M${mtb:scale}${mtb:scale:uphill} '}
+mtb:scale=* & mtb:scale:uphill!=* & route!=mtb & extremecarver6!=mr {set name='M${mtb:scale}. ${name}' | 'M${mtb:scale}.'}
+mtb:scale!=* & mtb:scale:uphill=* & route!=mtb & extremecarver6!=mr {set name='Mx${mtb:scale:uphill} ${name}' |'Mx${mtb:scale:uphill}'}
+
+
+# Temporary mtb:scale unification - There will be some ammendments to have a clearer difference between mtb:scale=0; mtb:scale=0- and mtb:scale=0+ or mtb:scale=0-1 in future. All other s are well enough seperated
+
+mtb:scale="1+" {set mtb:scale=1}
+mtb:scale="2+" {set mtb:scale=2}
+mtb:scale="3+" {set mtb:scale=3}
+mtb:scale="4+" {set mtb:scale=4}
+mtb:scale="5+" {set mtb:scale=5}
+
+
+mtb:scale="1-" {set mtb:scale=1}
+mtb:scale="2-" {set mtb:scale=2}
+mtb:scale="3-" {set mtb:scale=3}
+mtb:scale="4-" {set mtb:scale=4}
+mtb:scale="5-" {set mtb:scale=5}
+
+mtb:scale:uphill="0+" {set mtb:scale:uphill=0}
+mtb:scale:uphill="1+" {set mtb:scale:uphill=1}
+mtb:scale:uphill="2+" {set mtb:scale:uphill=2}
+mtb:scale:uphill="3+" {set mtb:scale:uphill=3}
+mtb:scale:uphill="4+" {set mtb:scale:uphill=4}
+mtb:scale:uphill="5+" {set mtb:scale:uphill=5}
+
+mtb:scale:uphill="0-" {set mtb:scale:uphill=0}
+mtb:scale:uphill="1-" {set mtb:scale:uphill=1}
+mtb:scale:uphill="2-" {set mtb:scale:uphill=2}
+mtb:scale:uphill="3-" {set mtb:scale:uphill=3}
+mtb:scale:uphill="4-" {set mtb:scale:uphill=4}
+mtb:scale:uphill="5-" {set mtb:scale:uphill=5}
+
+mtb:scale=* & mtb:scale!=0 & mtb:scale!="0+" & mtb:scale!="0-" & mtb:scale!=1 & mtb:scale!=2 & mtb:scale!=3 & mtb:scale!=4 & mtb:scale!=5 {delete mtb:scale}
+
+
+# Put already mtb:scale=0 into the map -- so that street condition naming works better....
+mtb:scale="0-" & mtb:scale:uphill!=0 & (highway=path | highway=footway | highway=bridleway | highway=cycleway)	{add taxi=no; add mkgmap:unpaved=1}	
+mtb:scale="0+" & mtb:scale:uphill!=0 & (highway=path | highway=footway | highway=bridleway | highway=cycleway)	{add taxi=no; add mkgmap:unpaved=1}	
+# mtb:scale="0-" & mtb:scale:uphill!=0 & ( highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) {add taxi=no} 
+# mtb:scale="0+" & mtb:scale:uphill!=0 & ( highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) {add taxi=no} 
+mtb:scale="0+" & highway!=path & highway!=footway & highway!=bridleway & highway!=cycleway & highway!=track & highway!=unsurfaced & highway!=road & highway!=byway & highway!=unclassified & highway!=service & mtb:scale:uphill!=0 {add taxi=no}
+mtb:scale="0-" & highway!=path & highway!=footway & highway!=bridleway & highway!=cycleway & highway!=track & highway!=unsurfaced & highway!=road & highway!=byway & highway!=unclassified & highway!=service & mtb:scale:uphill!=0 {add taxi=no}
+
+
+# mtb:scale=0 & mtb:scale:uphill!=0 & ( highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) {add taxi=no} 
+mtb:scale=0 & highway!=path & highway!=footway & highway!=bridleway & highway!=cycleway & highway!=track & highway!=unsurfaced & highway!=road & highway!=byway & highway!=unclassified & highway!=service & mtb:scale:uphill!=0 {add taxi=no}
+
+mtb:scale=0	& mtb:scale:uphill!=0 & (highway=path | highway=footway | highway=bridleway | highway=cycleway)	{add taxi=no; add mkgmap:unpaved=1}
+
+mtb:scale="0+" {set mtb:scale=0; set mtb:scale:0dif=yes}
+mtb:scale=0 & mtb:scale!="0-" & (highway=path | highway=footway | highway=bridleway) {set mkgmap:unpaved=1}
+mtb:scale="0-" {set mtb:scale=0; set mtb:scale:0easy=yes}
+
+
+# Add street condition to name
+( highway=path | highway=footway | highway=bridleway | highway=track | highway=unsurfaced | highway=road ) & tracktype=1 & ( tracktypeadded!=yes | surface=asphalt | surface=paving_stones ) {set name='${name} (G1)' | '(G1)'; set addendumname=yes} 
+
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:scale!=* & mtb:scale:uphill!=* & tracktype=2 & tracktypeadded!=yes {set name='${name} (G2)' | '(G2)'; set addendumname=yes}
+
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:scale!=* | mtb:scale>3) & sac_scale=demanding_mountain_hiking & addendumname!=* {set name='${name} (T3)' | '(T3)'; set addendumname=yes}
+
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:scale!=* | mtb:scale>3) & sac_scale=alpine_hiking & addendumname!=* {set name='${name} (T4)' | '(T4)'; set addendumname=yes}
+
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & sac_scale=demanding_alpine_hiking & addendumname!=* {set name='${name} (T5)' | '(T5)'; set addendumname=yes}
+
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & sac_scale=difficult_alpine_hiking & addendumname!=* {set name='${name} (T6)' | '(T6)'; set addendumname=yes}
+
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:scale!=* & tracktype=3 & tracktypeadded!=yes {set name='${name} (G3)' | '(G3)'; set addendumname=yes}
+
+( highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:scale!=* & ( tracktype!=1 | tracktype!=2 | tracktype!=3 | tracktypeadded=yes ) & sac_scale=hiking {set name='${name} (T1)' | '(T1)'; set addendumname=yes}
+
+( highway=path | highway=footway | highway=cycleway | highway=bridleway  ) & (mtb:scale!=* | mtb:scale>3) & ( tracktype!=1 | tracktype!=2 | tracktypeadded=yes ) & sac_scale=hiking {set name='${name} (T1)' | '(T1)'; set addendumname=yes}
+
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:scale!=* & addendumname!=* & tracktype=4 {set name='${name} (G4)' | '(G4)'; set addendumname=yes}
+
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:scale!=* & tracktype!=1 & tracktype!=2 & sac_scale=mountain_hiking {set name='${name} (T2)' | '(T2)'; set addendumname=yes}
+
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:scale!=* & tracktype=5 & addendumname!=* {set name='${name} (G5)' | '(G5)'}
+
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:scale!=* & tracktype=6 & addendumname!=* {set name='${name} (G6)' | '(G6)'}
+
+
+# Display MTB tracks Name
+(highway = bridleway | highway = path | highway = track | highway = radweg | highway = radfussweg) & (mtb:scale != * | name:mtb=* | mtb:name=* | name_mtb=* | mtb_name=*) {name '${name}'}
+
+# ---------------------------------
+# Downhill MTB tracks in Bikeparks
+# ---------------------------------
+#Green
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:type=downhill & (bicycle=yes | bicycle=designated) & (mtb:scale = 0 | mtb:scale:imba = 1) {name '${name}'} [0x12000 resolution 22]
+# Blue
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:type=downhill & (bicycle=yes | bicycle=designated) & (mtb:scale = 1 | mtb:scale:imba = 2) {name '${name}'} [0x12001 resolution 22]
+#Red
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:type=downhill & (bicycle=yes | bicycle=designated) & (mtb:scale = 2 | mtb:scale = 3) {name '${name}'} [0x12002 resolution 22]
+# Black
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:type=downhill & (bicycle=yes | bicycle=designated) & (mtb:scale >= 3 | mtb:scale:imba >= 4) {name '${name}'} [0x12003 resolution 22]
+
 
 # Ausgeschilderte, kombinierte Rad- und Fusswege:
 # -----------------------------------------------
@@ -1070,7 +1437,8 @@ highway = living_street & (area != * | area = no) [0x010f04 resolution 21-22]
 
 highway = footway  & fahrrad = yes & fuss = yes                       {set highway = radfussweg}
 highway = path     & fahrrad = yes & fuss = yes & bfdesignated = yes  {set highway = radfussweg}
-highway = cycleway & fahrrad = yes & fuss = yes                       {set highway = radfussweg}
+# highway = cycleway & fahrrad = yes & fuss = yes                       {set highway = radfussweg}
+highway = cycleway & fahrrad = yes & fuss = yes                       {set highway = radweg}
 
 
 # Ausgeschilderter Fussweg (nur Fussgaenger erlaubt):
@@ -1092,8 +1460,6 @@ highway = footway & fuss = yes                      {set highway = fussweg}
 highway = cycleway & fahrrad = yes                      {set highway = radweg}
 highway = path     & fahrrad = yes & bfdesignated = yes {set highway = radweg}
 
-# 0x12115 sentiers balisés VTT
-highway=* & c_route_mtb = yes & (c_route_hiking = no | c_route_hiking != *) {set name = '${name}' | '${ref}'} [0x12115 resolution 22]
 
 # "radweg" verarbeiten:
 # ---------------------
@@ -1110,7 +1476,7 @@ highway = radweg & man_made = dyke            [0x011f05 resolution 22 continue]
 # Allgemein oeffentlich
 # 0x011f1d = Bitmap 2 (breit, NoLabel)
 # 0x010f07 = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-highway = radweg {set name = '${name}' | '${ref}'} [0x011f1d resolution 24 continue]
+highway = radweg {name "${name}" | "${ref}"} [0x011f1d resolution 24 continue]
 highway = radweg [0x010f07 resolution 22-23]
 
 
@@ -1170,7 +1536,7 @@ highway = reitweg & man_made = dyke            [0x011f05 resolution 22 continue]
 
 # Kein Routing
 # 0x010e03 = Bitmap 2 (nur ein Pixel gefuellt, NoLabel)
-highway = reitweg [0x010e03 resolution 22]
+highway = reitweg {set name = '${name}' | '${ref}'} [0x010e03 resolution 22]
 
 
 # Treppen auf Fuss- / Wanderwegen:
@@ -1233,7 +1599,7 @@ highway = sacscalet1 [0x010e06 resolution 22-23]
 
 # 0x011f09 = Bitmap 2 (breit, NoLabel)
 # 0x011f0c = Bitmap 2 (schmal, nur ein Pixel gefuellt, NoLabel)
-#highway = bergweg12 [0x011f09 resolution 24 continue]
+#highway = bergweg12 {set name = '${name}' | '${ref}'} [0x011f09 resolution 24 continue]
 #highway = bergweg12 [0x011f0c resolution 22-23]
 
 # 0x011f07 = Bitmap 2 (breit, NoLabel)
@@ -1296,13 +1662,11 @@ highway = path  & (area != * | area = no) [0x010e06 resolution 22-23]
 # - Damit ist dies kein Feldweg mehr, sondern eine "Strasse unbekannter Klassifikation".
 # - Die Darstellung erfolgt entsprechend oder aehnlich wie "highway = unclassified".
 
-highway = track & tracktype = grade1 {set highway = feldweg1}
-
-highway = track & tracktype = grade2 {set highway = feldweg023}
-highway = track & tracktype = grade3 {set highway = feldweg023}
-
-highway = track & tracktype = grade4 {set highway = feldweg45}
-highway = track & tracktype = grade5 {set highway = feldweg45}
+highway = track & tracktype = 1 {set highway = feldweg1}
+highway = track & tracktype = 2 {set highway = feldweg023}
+highway = track & tracktype = 3 {set highway = feldweg023}
+highway = track & tracktype = 4 {set highway = feldweg45}
+highway = track & tracktype = 5 {set highway = feldweg45}
 
 # Verbleibende Elemente "highway=track" umdefinieren (0 = ohne tracktype-Angabe):
 highway = track {set highway = feldweg023}
@@ -1548,12 +1912,12 @@ route = ferry [0x011f10 resolution 20 continue with_actions]
 # 0x012018 = 4 (mittel, gestrichelt, NoLabel) Tunnel
 # 0x010103 = 2 (schmal, NoLabel)
 # 0x012016 = 2 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = canal & ( tunnel != yes & tunnel != culvert) [0x26     resolution 24 continue]
-waterway = canal & ( tunnel = yes | tunnel = culvert)   [0x01201a resolution 24 continue]
-waterway = canal & ( tunnel != yes & tunnel != culvert) [0x010102 resolution 23-23 continue]
-waterway = canal & ( tunnel = yes | tunnel = culvert)   [0x012018 resolution 23-23 continue]
-waterway = canal & ( tunnel != yes & tunnel != culvert) [0x010103 resolution 21-22 continue]
-waterway = canal & ( tunnel = yes | tunnel = culvert)   [0x012016 resolution 21-22 continue]
+waterway = canal & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x26 resolution 24 continue]
+waterway = canal & ( tunnel = yes | tunnel = culvert  | tunnel = flooded)   [0x01201a resolution 24 continue]
+waterway = canal & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x010102 resolution 23-23 continue]
+waterway = canal & ( tunnel = yes | tunnel = culvert  | tunnel = flooded)   [0x012018 resolution 23-23 continue]
+waterway = canal & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x010103 resolution 21-22 continue]
+waterway = canal & ( tunnel = yes | tunnel = culvert | tunnel = flooded )   [0x012016 resolution 21-22 continue]
 
 # Staudamm oder Staumauer fuer Speichersee und aehnliches. [way, aber auch closedway]
 # 0x01010c = 2 (NoLabel)
@@ -1562,14 +1926,14 @@ waterway = dam [0x01010c resolution 23 continue]
 # Wassergraben.
 # 0x01010a = 2 (NoLabel)
 # 0x012016 = 2 (NoLabel, gestrichelt) Tunnel
-waterway = ditch & ( tunnel != yes & tunnel != culvert) [0x01010a resolution 24 continue]
-waterway = ditch & ( tunnel = yes | tunnel = culvert)   [0x01201b resolution 24 continue]
+waterway = ditch & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x01010a resolution 24 continue]
+waterway = ditch & ( tunnel = yes | tunnel = culvert | tunnel = flooded)   [0x01201b resolution 24 continue]
 
 # Abwassergraben, Abfluss - Bauwerk, das z.B. Regen- oder Industrieabwaesser aufnimmt.
 # 0x012104 = 2 (NoLabel)
 # 0x012016 = 2 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = drain & ( tunnel != yes & tunnel != culvert) [0x012104 resolution 24]
-waterway = drain & ( tunnel = yes | tunnel = culvert)   [0x01201c resolution 24]
+waterway = drain & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x012104 resolution 24]
+waterway = drain & ( tunnel = yes | tunnel = culvert | tunnel = flooded)   [0x01201c resolution 24]
 
 # Fluss
 # 0x1f     = 5 (breit, Label, SmallFont)
@@ -1578,23 +1942,23 @@ waterway = drain & ( tunnel = yes | tunnel = culvert)   [0x01201c resolution 24]
 # 0x012017 = 3 (mittel, gestrichelt, NoLabel) Tunnel
 # 0x010101 = 1 (schmal, NoLabel)
 # 0x012015 = 1 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = river & ( tunnel != yes & tunnel != culvert) [0x1f     resolution 24 continue]
-waterway = river & ( tunnel = yes | tunnel = culvert)   [0x012019 resolution 24 continue]
-waterway = river & ( tunnel != yes & tunnel != culvert) [0x010100 resolution 23-23 continue]
-waterway = river & ( tunnel = yes | tunnel = culvert)   [0x012017 resolution 23-23 continue]
-waterway = river & ( tunnel != yes & tunnel != culvert) [0x010101 resolution 21-22]
-waterway = river & ( tunnel = yes | tunnel = culvert)   [0x012015 resolution 21-22]
+waterway = river & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x1f     resolution 24 continue]
+waterway = river & ( tunnel = yes | tunnel = culvert | tunnel = flooded)   [0x012019 resolution 24 continue]
+waterway = river & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x010100 resolution 23-23 continue]
+waterway = river & ( tunnel = yes | tunnel = culvert | tunnel = flooded)   [0x012017 resolution 23-23 continue]
+waterway = river & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x010101 resolution 21-22]
+waterway = river & ( tunnel = yes | tunnel = culvert | tunnel = flooded)   [0x012015 resolution 21-22]
 
 # Intermittent water
-(waterway = stream | waterway = canal) & intermittent = yes & ( tunnel != yes & tunnel != culvert) [0x01201d     resolution 23]
-(waterway = stream | waterway = canal) & intermittent = yes & ( tunnel = yes | tunnel = culvert)   [0x01201d  resolution 23]
+(waterway = stream | waterway = canal) & intermittent = yes & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x01201d     resolution 23]
+(waterway = stream | waterway = canal) & intermittent = yes & ( tunnel = yes | tunnel = culvert | tunnel = flooded)   [0x01201d  resolution 23]
 
 
 # Bach - natuerliches schmales Gewaesser, zu klein fuer die Bezeichnung Fluss.
 # 0x18     = 2 (NoLabel)
 # 0x012016 = 2 (schmal, gestrichelt, NoLabel) Tunnel
-waterway = stream & ( tunnel != yes & tunnel != culvert) [0x18     resolution 23]
-waterway = stream & ( tunnel = yes | tunnel = culvert)   [0x01201d resolution 23]
+waterway = stream & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x18     resolution 23]
+waterway = stream & ( tunnel = yes | tunnel = culvert | tunnel = flooded)   [0x01201d resolution 23]
 
 # Wehr (auch als Gebaeude moeglich, s.a. Staudamm / -mauer)
 # 0x012105 = 2 (NoLabel)
@@ -1615,7 +1979,7 @@ boundary = administrative & admin_level = 2 [0x1e resolution 11]
 
 # Nationalparkgrenze
 # 0x1d = Bitmap 2
-schutzgebiet = national_park [0x1d resolution 21-23]
+schutzgebiet = national_park [0x1d resolution 21-24]
 
 
 # ------------------------------------------------------------------
@@ -1841,13 +2205,13 @@ barrier = hedge_bank [ 0x012111 resolution 24 ]
 # - "ele > 0": Im Flachland Linien der Hoehe "0" vermeiden.
 # -------------------------------------------------
 # 0x20 = 1 (NoLabel)
-# 0x21 = 2 (Label, SmallFont)
+# 0x21 = 1 (Label, SmallFont)
 # 0x22 = 2 (Label, SmallFont)
 
   contour = elevation & contour_ext = elevation_minor  & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 24]
   
-  contour = elevation & contour_ext = elevation_medium & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x21 resolution 23 continue with_actions]
-  contour = elevation & contour_ext = elevation_medium & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 20-22]
+  contour = elevation & contour_ext = elevation_medium & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x21 resolution 24 continue with_actions]
+  contour = elevation & contour_ext = elevation_medium & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 22-23]
   
   contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x22 resolution 22 continue with_actions]
   contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 20-21]
@@ -1859,6 +2223,7 @@ barrier = hedge_bank [ 0x012111 resolution 24 ]
 # add the following lines to your lines file
  <finalize>
 # deactivated: include 'roadspeed';
+
 
 # name=* { name '${name}' }
 # mkgmap:default_name=* { name '${mkgmap:default_name}' }

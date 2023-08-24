@@ -352,7 +352,7 @@ include "indexsearch"
 # Interdit aux VTT
 # -------------------------------------------------
 highway = sacscalet4t5t6 & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x04808 resolution 24]
-highway = sacscalet2t3 & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x04808 resolution 24]
+# highway = sacscalet2t3 & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x04808 resolution 24]
 (highway = bridleway | highway = path | highway = track) & ( mtb:scale = 5 | mtb:scale = 6) & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x04808 resolution 24]
 # (highway = bridleway | highway = path | highway = track) & bicycle != yes & bicycle != designated & mtb:scale != * & foot = yes & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x04808 resolution 24]
 (highway = bridleway | highway = path | highway = track) & bicycle = no & mtb:scale != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x04808 resolution 24]
@@ -382,8 +382,8 @@ information=guidepost
 # Bewirtschaftete Berghütten
 tourism = alpine_hut & name = * & ele = * {name "${name} (${ele})"}   [0x4803 resolution 23]
 tourism = alpine_hut & name = *           {name "${name}"}            [0x4803 resolution 23]
-tourism = alpine_hut & ele = *            {name "Refuge de montagne (${ele})"} [0x4803 resolution 23]
-tourism = alpine_hut                      {name "Refuge de montagne"}          [0x4803 resolution 23]
+tourism = alpine_hut & ele = *            {name "Refuge (${ele})"} [0x4803 resolution 23]
+tourism = alpine_hut                      {name "Refuge"}          [0x4803 resolution 23]
 
 # Aquarium.
 # tourism = aquarium & name = * {name "${name} ($__AQUARIUM__)"} [0x2c07 resolution 24]
@@ -396,13 +396,13 @@ tourism = alpine_hut                      {name "Refuge de montagne"}          [
 # to provide basic shelter, sleeping, to hikers and climbers.
 tourism = basic_hut & name = * & ele = * {name "${name} (${ele})"}   [0x4805 resolution 23]
 tourism = basic_hut & name = *           {name "${name}"}            [0x4805 resolution 23]
-tourism = basic_hut & ele = *            {name "Refuge basique_ (${ele})"} [0x4805 resolution 23]
-tourism = basic_hut                      {name "Refuge basique_"}          [0x4805 resolution 23]
+tourism = basic_hut & ele = *            {name "Refuge (${ele})"} [0x4805 resolution 23]
+tourism = basic_hut                      {name "Refuge"}          [0x4805 resolution 23]
 # Basic hut (new tagging) [point, closedway]
 amenity = shelter & shelter_type = basic_hut & name = * & ele = * {name "${name} (${ele})"}   [0x4805 resolution 23]
 amenity = shelter & shelter_type = basic_hut & name = *           {name "${name}"}            [0x4805 resolution 23]
-amenity = shelter & shelter_type = basic_hut & ele = *            {name "Refuge basique (${ele})"} [0x4805 resolution 23]
-amenity = shelter & shelter_type = basic_hut                      {name "Refuge basique"}          [0x4805 resolution 23]
+amenity = shelter & shelter_type = basic_hut & ele = *            {name "Refuge (${ele})"} [0x4805 resolution 23]
+amenity = shelter & shelter_type = basic_hut                      {name "Refuge"}          [0x4805 resolution 23]
 
 # Bed & Breakfast. [point, closedway]
 # deprecated: tourism = bed_and_breakfast  https://wiki.openstreetmap.org/wiki/Tag:tourism%3Dguest_house
@@ -512,19 +512,19 @@ natural = cliff & name = * {name "${name} (Falaise)"} [0x6607 resolution 23]
 (natural = col | natural = saddle)                      {name "N.N."}             [0x661b resolution 23]
 
 # Alm, Matten: Bereich oberhalb der Baumgrenze. [point, closedway]
-natural = fell & name = * {name "${name} ($__FELL__)"} [0x6600 resolution 24]
+natural = fell & name = * {name "${name} (Alpage)"} [0x6600 resolution 24]
 
 # Gebiet (auch Bergspitze), das ganzjährig mit Eis bedeckt ist. [point, closedway]
 natural = glacier & name = * {name "${name} (Glacier)"} [0x650a resolution 24]
 
 # Heide. [point, closedway]
-# natural = heath & name = * {name "${name} ($__HEATH__)"} [0x6600 resolution 24]
+natural = heath & name = * {name "${name} (Lande)"} [0x6600 resolution 24]
 
 # Marsch (Feuchtgebiet, Sumpf, Moor, etc.) veraltet, siehe natural=wetland). [point, closedway]
-# natural = marsh & name = * {name "${name} ($__MARSH__)"} [0x6513 resolution 24]
+natural = marsh & name = * {name "${name} (Marécage)"} [0x6513 resolution 24]
 
 # Schlick / Moor. [point, closedway]
-# natural = mud & name = * {name "${name} ($__MUD__)"} [0x6500 resolution 24]
+natural = mud & name = * {name "${name} (Boue)"} [0x6500 resolution 24]
 
 # Bergspitze. [point]
 natural = peak & name = * & ele = * {name "${name} (${ele})"} [0x6616 resolution 23]
@@ -533,13 +533,13 @@ natural = peak & ele = *            {name "N.N. (${ele})"}    [0x6616 resolution
 natural = peak                      {name "N.N."}             [0x6616 resolution 23]
 
 # Boden mit Sand bedeckt, kein oder nur spärlicher Bewuchs. [point, closedway]
-# natural = sand & name = * {name "${name} ($__SAND__)"} [0x6600 resolution 24]
+natural = sand & name = * {name "${name} (Sable)"} [0x6600 resolution 24]
 
 # (Loses) Geröll. [point, closedway]
 natural = scree & name = * {name "${name} (Pierrier)"} [0x6600 resolution 24]
 
 # Unkultiviertes Land: Unterholz / Busch. [point, closedway]
-# natural = scrub & name = * {name "${name} ($__SCRUB__)"} [0x6600 resolution 24]
+# natural = scrub & name = * {name "${name} (Broussailles"} [0x6600 resolution 24]
 
 # Quelle. [point]
 natural = spring {name "${name} (Source)" | "Source"} [0x6511 resolution 24]
@@ -728,7 +728,7 @@ amenity = cafe & name = * {name "${name} (Café)"} [0x2a0e resolution 24]
 #amenity = fast_food                   & name = * {name "${name} ($__FASTFOOD__)"}             [0x2a07 resolution 24]
 
 # Eiscafé, Eisdiele. [point, closedway]
-# amenity = ice_cream & name = * {name "${name} ($__ICECREAM__)"} [0x2a0e resolution 24]
+amenity = ice_cream & name = * {name "${name} (Glaces)"} [0x2a0e resolution 24]
 
 # Kneipe. [point, closedway]
 amenity = pub & name = * {name "${name} (Pub)"}  [0x2d02 resolution 24]
@@ -832,7 +832,7 @@ amenity = pub & name = * {name "${name} (Pub)"}  [0x2d02 resolution 24]
 # amenity = restaurant & cuisine = * & name = * {set name = "${name} (${cuisine}, $__RESTAURANT__)"} [0x2a13 resolution 24]
 
 # Alle verbleidenden Restaurants.
-# amenity = restaurant & name = * {set name = "${name} ($__RESTAURANT__)"} [0x2a00 resolution 24]
+# amenity = restaurant & name = * {set name = "${name} (Restaurant)"} [0x2a00 resolution 24]
 
 # Kategorie "Bildung"
 # -------------------
@@ -905,7 +905,7 @@ amenity = bank & atm = yes {name "${name} ($__ATM__)" | "${operator} (Distribute
 amenity = pharmacy & name = * {name "${name} (Pharmacie)"} [0x2e05 resolution 24]
 
 # Krankenhaus. [point, closedway]
-amenity = hospital & name = * {name "${name} (Hôpital_)"} [0x3002 resolution 24]
+amenity = hospital & name = * {name "${name} (Hôpital)"} [0x3002 resolution 24]
 
 # Kategorie "Unterhaltung, Kunst, Kultur"
 # ---------------------------------------
@@ -970,7 +970,7 @@ amenity = place_of_worship & name = * {name "${name} (Lieu de culte)"} [0x6405 r
 amenity = place_of_worship            {name "Lieu de culte"}           [0x6405 resolution 24]
 
 # Polizeistation. [point, closedway]
-# amenity = police {name "${name} ($__POLICE__)" | "$__POLICE__"} [0x3001 resolution 24]
+amenity = police {name "${name} (Poste de police)" | "Poste de police"} [0x3001 resolution 24]
 
 # Postamt. [point, closedway]
 # amenity = post_office {name "${name} ($__POSTOFFICE__)" | "$__POSTOFFICE__"} [0x2f05 resolution 24]
@@ -996,7 +996,7 @@ amenity = toilets [0x2f0c resolution 24]
 # ------------------------------------------------------------
 
 # Stollen, Zugang zu einer Mine, horizontal oder fast horizontal. [point, closedway]
-man_made = adit & name = * {name "${name} (Tunnel/Mine)"} [0x6600 resolution 24]
+man_made = adit & name = * {name "${name} (Entrée de mine souterraine)"} [0x6600 resolution 24]
 
 # Blinklicht / Bake / Leuchtfeuer. [point]
 man_made = beacon & name = * {name "${name} (Balise)"} [0x6500 resolution 24]
@@ -1015,7 +1015,7 @@ man_made = lighthouse {name "${name} (Phare)" | "Phare"} [0x1206 resolution 24]
 #man_made = mast {name "${name} ($__MAST__)" | "$__MAST__"} [0x2f11 resolution 24]
 
 # Schacht. [point, closedway]
-man_made = mineshaft & name = * {name "${name} (Puit de mine"} [0x6600 resolution 24]
+man_made = mineshaft & name = * {name "${name} (Puits de mine"} [0x6600 resolution 24]
 
 # Messstation. [point, closedway]
 # man_made = monitoring_station (wird derzeit nicht unterstützt)
@@ -1121,14 +1121,14 @@ shop = wine                 {set shop=alcohol; set wine=yes; delete wine}
 shop = winery               {set shop=alcohol; set wine=yes; delete winery}
 
 # Bäckerei. [point, closedway]
-# shop = bakery & name = * {name "${name} ($__BAKERY__)"} [0x2a0d resolution 24]
+shop = bakery & name = * {name "${name} (Boulangerie)"} [0x2a0d resolution 24]
 
 # Schönheitssalon, Kosmetiksalon, Damensalon, Nagelstudio, Parfümerie, Wellness-Center. [point, closedway]
 # shop = beauty    & name = * {name "${name} ($__COSMETICS__)"} [0x2f10 resolution 24]
 # shop = cosmetics & name = * {name "${name} ($__COSMETICS__)"} [0x2f10 resolution 24]
 
 # Fahrradgeschäft, Fahrradwerkstatt, Fahrradverleih, Fahrradservice. [point, closedway]
-shop = bicycle & name = * {name "${name} ($__BICYCLESHOP__)"} [0x2f13 resolution 24]
+shop = bicycle & name = * {name "${name} (Magasin de cycles)"} [0x2f13 resolution 24]
 
 # Metzgerei, Fleischerei, Schlachterei. [point, closedway]
 # shop = butcher & name = * {name "${name} ($__BUTCHER__)"} [0x2e02 resolution 24]
@@ -1181,7 +1181,7 @@ shop = bicycle & name = * {name "${name} ($__BICYCLESHOP__)"} [0x2f13 resolution
 # shop = hardware & name = * {name "${name} ($__HARDWARE__)"} [0x2e0a resolution 24]
 
 # Eis, Eisdiele, Eiscaffee. [point, closedway] (s.a. amenity)
-shop = ice_cream & name = * {name "${name} ($__ICECREAMSHOP__)"} [0x2a0e resolution 24]
+shop = ice_cream & name = * {name "${name} (Glaces)"} [0x2a0e resolution 24]
 
 # Einkaufszentrum. [point, closedway]
 #shop = mall & name = * {name "${name} ($__MALL__)"} [0x2e04 resolution 24]
@@ -1193,7 +1193,7 @@ shop = ice_cream & name = * {name "${name} ($__ICECREAMSHOP__)"} [0x2a0e resolut
 # shop = shoes & name = * {name "${name} ($__SHOES__)"} [0x2e07 resolution 24]
 
 # Supermarkt (großes Lebensmittelgeschäft). [point, closedway]
-shop = supermarket & name = * {name "${name} ($__SUPERMARKET__)"} [0x2e02 resolution 24]
+shop = supermarket & name = * {name "${name} (Supermarché)"} [0x2e02 resolution 24]
 
 # Baustoffhandel, Baumaterial: Steine,Holz, Zement ,etc. [point, closedway]
 # shop = trade & name = * {name "${name} ($__TRADESHOP__)"} [0x2e08 resolution 24]
@@ -1266,7 +1266,7 @@ shop = supermarket & name = * {name "${name} ($__SUPERMARKET__)"} [0x2e02 resolu
 # --------------------------------------------
 
 # Bushaltestelle. [point] (s.a. amenity = bus_station)
-highway = bus_stop {name "${name} ($__BUSSTOP__)" | "$__BUSSTOP__"} [0x2f08 resolution 24]
+# highway = bus_stop {name "${name} ($__BUSSTOP__)" | "$__BUSSTOP__"} [0x2f08 resolution 24]
 
 # Fußgängerüberweg (Zebrastreifen, Fußgängerfurt). [point]
 # highway = crossing (wird derzeit nicht unterstützt)
@@ -1733,8 +1733,8 @@ barrier = lift_gate [0x1210 resolution 24]
  <finalize>
 # deactivated #include 'compat_points';
 name=* { name '${name}' }
-mkgmap:default_name=* { name '${mkgmap:default_name}' }
-mkgmap:display_name=* { addlabel '${mkgmap:display_name|subst:;=>/}' }
+# mkgmap:default_name=* { name '${mkgmap:default_name}' }
+# mkgmap:display_name=* { addlabel '${mkgmap:display_name|subst:;=>/}' }
 
 mkgmap:label:1!=* & ref=* { addlabel '${ref|part:;:1}' }
 mkgmap:label:1!=* & int_ref=* { addlabel '${int_ref|part:;:1}' }
