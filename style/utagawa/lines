@@ -1408,17 +1408,18 @@ mtb:scale="0-" {set mtb:scale=0; set mtb:scale:0easy=yes}
 (highway = bridleway | highway = path | highway = track | highway = radweg | highway = radfussweg) & (mtb:scale != * | name:mtb=* | mtb:name=* | name_mtb=* | mtb_name=*) {name '${name}'}
 
 # ---------------------------------
-# Downhill MTB tracks in Bikeparks
+# Downhill/Enduro MTB tracks in Bikeparks
 # ---------------------------------
 #Green
-( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:type=downhill & (bicycle=yes | bicycle=designated) & (mtb:scale = 0 | mtb:scale:imba = 1) {name '${name}'} [0x12000 resolution 22]
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated) & (mtb:scale = 0 | mtb:scale:imba = 1) {name '${name}'} [0x12000 resolution 22]
 # Blue
-( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:type=downhill & (bicycle=yes | bicycle=designated) & (mtb:scale = 1 | mtb:scale:imba = 2) {name '${name}'} [0x12001 resolution 22]
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated) & (mtb:scale = 1 | mtb:scale:imba = 2) {name '${name}'} [0x12001 resolution 22]
 #Red
-( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:type=downhill & (bicycle=yes | bicycle=designated) & (mtb:scale = 2 | mtb:scale = 3) {name '${name}'} [0x12002 resolution 22]
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated) & (mtb:scale = 2 | mtb:scale:imba = 3) {name '${name}'} [0x12002 resolution 22]
 # Black
-( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & mtb:type=downhill & (bicycle=yes | bicycle=designated) & (mtb:scale >= 3 | mtb:scale:imba >= 4) {name '${name}'} [0x12003 resolution 22]
-
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated) & (mtb:scale >= 3 | mtb:scale:imba >= 4) {name '${name}'} [0x12003 resolution 22]
+# Other MTB Pistes (DH/Enduro) without difficulty specified
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated) {name '${name}'} [0x12004 resolution 22]
 
 # Ausgeschilderte, kombinierte Rad- und Fusswege:
 # -----------------------------------------------
@@ -1950,7 +1951,7 @@ waterway = river & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x
 waterway = river & ( tunnel = yes | tunnel = culvert | tunnel = flooded)   [0x012015 resolution 21-22]
 
 # Intermittent water
-(waterway = stream | waterway = canal) & intermittent = yes & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x01201d     resolution 23]
+(waterway = stream | waterway = canal) & intermittent = yes & ( tunnel != yes & tunnel != culvert  & tunnel != flooded) [0x012118   resolution 23]
 (waterway = stream | waterway = canal) & intermittent = yes & ( tunnel = yes | tunnel = culvert | tunnel = flooded)   [0x01201d  resolution 23]
 
 
@@ -1988,11 +1989,11 @@ schutzgebiet = national_park [0x1d resolution 21-24]
 
 # Stromleitung (Überlandleitung)
 # 0x29 = 1 (NoLabel)
-power = line [0x29 resolution 24]
+# power = line [0x29 resolution 24]
 
 # Freileitung mit Nieder- oder Mittelspannung.
 # 0x29 = 1 (NoLabel)
-power = minor_line [0x29 resolution 24]
+# power = minor_line [0x29 resolution 24]
 
 
 # ------------------------------------------------------------------
@@ -2213,8 +2214,8 @@ barrier = hedge_bank [ 0x012111 resolution 24 ]
   contour = elevation & contour_ext = elevation_medium & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x21 resolution 24 continue with_actions]
   contour = elevation & contour_ext = elevation_medium & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 22-23]
   
-  contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x22 resolution 22 continue with_actions]
-  contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 20-21]
+  contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${ele|conv:m=>ft}';} [0x22 resolution 22 continue with_actions]
+  contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${ele|conv:m=>ft}';} [0x20 resolution 20-21]
 
 # Needed Include Lines for making
 # old mkgmap styles (pre r2906)

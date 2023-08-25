@@ -335,11 +335,6 @@
 # Macro variable expansion
 #
 # Link: www.synesys.com/Downloads/ppp.html
-#
-# Optionale Features:
-# - TRIGMARK: Darstellung von Trigonometrischen Markierungen
-# - DRINKINGWATER: Darstellung von Trinkwasserstellen (Not needed anymore, always displayed except NODRINKINGWATER is set)
-# - NODRINKINGWATER: Disable display of Drinkingwater
 # ------------------------------------------------------------
 
 # -------------------------------------------------
@@ -351,12 +346,12 @@ include "indexsearch"
 # -------------------------------------------------
 # Interdit aux VTT
 # -------------------------------------------------
-highway = sacscalet4t5t6 & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x04808 resolution 24]
-# highway = sacscalet2t3 & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x04808 resolution 24]
-(highway = bridleway | highway = path | highway = track) & ( mtb:scale = 5 | mtb:scale = 6) & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x04808 resolution 24]
-# (highway = bridleway | highway = path | highway = track) & bicycle != yes & bicycle != designated & mtb:scale != * & foot = yes & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x04808 resolution 24]
-(highway = bridleway | highway = path | highway = track) & bicycle = no & mtb:scale != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x04808 resolution 24]
-(highway = bridleway | highway = path | highway = track) & bicycle != yes & bicycle != designated & access = no & mtb:scale != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=end) [0x04808 resolution 24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & ( mtb:scale = 5 | mtb:scale = 6) & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & bicycle = no & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle = no & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes) & bicycle = no & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes | bridge != no | tunnel != no) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
 
 # ------------------------------------------------------------
 # Tourismus / tourism:
@@ -366,15 +361,7 @@ highway = sacscalet4t5t6 & (mkgmap:line2poitype=start | mkgmap:line2poitype=end)
 # ------------------------------------------------------------
 
 # Panneau d'information
-information=guidepost
-{ name '${name} - ${operator}'
-| '${name}'
-| '${description}'
-| '${operator}'
-| '${ref}'
-}
-[0x0480b resolution 24]
-
+information = guidepost { name '${name}' | '${description}' | '${operator}' | '${ref}' } [0x0480b resolution 24 continue]
 
 # Schutzhütte, Berghütte. [point, closedway]
 # siehe auch "amenity = shelter"
@@ -587,6 +574,9 @@ natural = wood & name = * {name "${name} (Bois/Forêt)"} [0x660A resolution 24]
 # Landkreis, Grafschaft, Bezirk. [point, closedway]
 # place = county (wird derzeit nicht unterstützt)
 
+# Capitale
+place = city & (capital = yes | capital = true) [0x0300 resolution 17]
+
 # Megastadt (>1.000.000 Einwohner) oder Landeshauptstadt. [point, closedway]
 #place = city & (population > 1000000 | capital = true) [0x0100 resolution 17]
 # starting at 12 for overviewmap
@@ -648,7 +638,6 @@ place = town [0x0600 resolution 18]
 
 # Dorf (< 2.000 Einwohner), ehemals selbständige Gemeinde. [point, closedway]
 place = village [0x0c00 resolution 21]
-
 
 # ------------------------------------------
 # Energieversorgung / power:
