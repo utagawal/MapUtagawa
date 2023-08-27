@@ -346,6 +346,8 @@ include "indexsearch"
 # -------------------------------------------------
 # Interdit aux VTT
 # -------------------------------------------------
+highway = sacscalet4t5t6 & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & mtb:scale!=* & (tracktype=5 | tracktype=6) & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & ( mtb:scale = 5 | mtb:scale = 6) & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & bicycle = no & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]

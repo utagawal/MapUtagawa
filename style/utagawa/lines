@@ -500,7 +500,8 @@ mtb = designated {set bicycle = designated; delete mtb}
 mtb = yes {set bicycle = yes; delete mtb}
 
 #0x12114 Sentiers VTT non praticables ou interdits
-highway = sacscalet4t5t6 [0x12114 resolution 21]
+highway = sacscalet4t5t6 [0x12114 resolution 24 continue]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & mtb:scale!=* & (tracktype=5 | tracktype=6) [0x12114 resolution 24 continue]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & ( mtb:scale = 5 | mtb:scale = 6) [0x12114 resolution 24 continue]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & bicycle = no & mtb:scale != * & mtb:type != * [0x12114 resolution 24 continue]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * [0x12114 resolution 24 continue]
@@ -508,6 +509,8 @@ highway = sacscalet4t5t6 [0x12114 resolution 21]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes) & bicycle = no & mtb:scale != * & mtb:type != * [0x12114 resolution 24 continue]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes | bridge != no | tunnel != no) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * [0x12114 resolution 24 continue]
 
+highway = sacscalet4t5t6 [0x12114 resolution 22-23]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & mtb:scale!=* & (tracktype=5 | tracktype=6) [0x12114 resolution 22-23 continue]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & ( mtb:scale = 5 | mtb:scale = 6) [0x12116 resolution 22-23]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & bicycle = no & mtb:scale != * & mtb:type != * [0x12116 resolution 22-23]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * [0x12116 resolution 22-23]
@@ -1041,7 +1044,7 @@ highway = living_street & (area != * | area = no) [0x010f04 resolution 21-22]
 #======================================================================================
 
 # 0x12115 routes balisés VTT
-highway=* & c_route_mtb = yes & (c_route_hiking = no | c_route_hiking != *) {name '${name}' | '${ref}'} [0x12115 resolution 22]
+highway=* & (c_route_mtb = yes | route=mtb | extremecarver=mr) & (c_route_hiking = no | c_route_hiking != *) {name '${name}' | '${ref}'} [0x12115 resolution 22]
 
 ## MTB naming Section
 mbt:scale=* {add mtb:scale = '${mbt:scale}'}
@@ -1316,13 +1319,13 @@ mtb:scale=0 & ( tracktype=5 | smoothness=very_horrible | smoothness=impassable )
 
 # Add mtb:scale(:uphill) to name
 
-mtb:scale=* & mtb:scale:uphill=*  & (route=mtb | extremecarver=mr){set name='MR${mtb:scale}${mtb:scale:uphill} ${name}' | 'MR${mtb:scale}${mtb:scale:uphill} '}
-mtb:scale=* & mtb:scale:uphill!=* & (route=mtb | extremecarver=mr){set name='MR${mtb:scale}. ${name}' | 'MR${mtb:scale}.'}
-(route=mtb | extremecarver=mr) & mtb:scale!=* & mtb:scale:uphill=* {set name='MRx${mtb:scale:uphill} ${name}' |'MRx${mtb:scale:uphill}'}
+mtb:scale=* & mtb:scale:uphill=*  & (route=mtb | extremecarver=mr){set name='${name} (MR${mtb:scale}${mtb:scale:uphill})' | '(MR${mtb:scale}${mtb:scale:uphill})'}
+mtb:scale=* & mtb:scale:uphill!=* & (route=mtb | extremecarver=mr){set name='${name} (MR${mtb:scale})' | '(MR${mtb:scale})'}
+(route=mtb | extremecarver=mr) & mtb:scale!=* & mtb:scale:uphill=* {set name='${name} (MRx${mtb:scale:uphill})' |'(MRx${mtb:scale:uphill})'}
 
-mtb:scale=* & mtb:scale:uphill=* & route!=mtb & extremecarver6!=mr {set name='M${mtb:scale}${mtb:scale:uphill} ${name}' | 'M${mtb:scale}${mtb:scale:uphill} '}
-mtb:scale=* & mtb:scale:uphill!=* & route!=mtb & extremecarver6!=mr {set name='M${mtb:scale}. ${name}' | 'M${mtb:scale}.'}
-mtb:scale!=* & mtb:scale:uphill=* & route!=mtb & extremecarver6!=mr {set name='Mx${mtb:scale:uphill} ${name}' |'Mx${mtb:scale:uphill}'}
+mtb:scale=* & mtb:scale:uphill=* & route!=mtb & extremecarver6!=mr {set name='${name} (M${mtb:scale}${mtb:scale:uphill})' | '(M${mtb:scale}${mtb:scale:uphill})'}
+mtb:scale=* & mtb:scale:uphill!=* & route!=mtb & extremecarver6!=mr {set name='${name} (M${mtb:scale})' | '(M${mtb:scale})'}
+mtb:scale!=* & mtb:scale:uphill=* & route!=mtb & extremecarver6!=mr {set name='${name} (Mx${mtb:scale:uphill})' |'(Mx${mtb:scale:uphill})'}
 
 
 # Temporary mtb:scale unification - There will be some ammendments to have a clearer difference between mtb:scale=0; mtb:scale=0- and mtb:scale=0+ or mtb:scale=0-1 in future. All other s are well enough seperated
