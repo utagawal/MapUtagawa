@@ -18,6 +18,5 @@ ignore-turn-restrictions
 preserve-element-order
 min-size-polygon: 4
 merge-lines
-copyright-message: ©openstreetmap.org ©UtagawaVTT.com
-
-
+copyright-message: ©Openstreetmap.org ©UtagawaVTT.com
+nsis

@@ -82,11 +82,17 @@ fi
 java -Xmx16384m -jar ../mkgmap/mkgmap.jar -c ../options_${type}.args -c map.args
 
 if [ -f "${mapname_courbes}0000.img" ]; then
-   java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --description="MapUtagawa (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img ${mapname_courbes}*.img
+   java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --family-name="MapUtagawa ${land}" --series-name="MapUtagawa ${land} ${d%%}" --description="MapUtagawa (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img ${mapname_courbes}*.img
 else
-   java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --description="MapUtagawa (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img
+   java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --family-name="MapUtagawa ${land}" --series-name="MapUtagawa ${land} ${d%%}" --description="MapUtagawa (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img
 fi
 
+   echo "***** Create installer ...."
+cp ../style/${type}.typ ./x${type}.typ
+makensis ./osmmap.nsi
+rm x${type}.typ
+ 
+ 
  rm ${mapname}*.img 
  rm ${mapname}*.osm.pbf
  rm areas.list
@@ -95,16 +101,18 @@ fi
  rm densities-out.txt
  rm osmmap.img
  rm osmmap.tdb
-
+ rm osmmap.nsi
+ 
  rm -f /var/data/garminmaps/UtagawaVTTmap/${land_without_space}/${name_file}*
 
 dm=`date "+%Y_%m_%d"`
 
 mkdir /var/data/garminmaps/UtagawaVTTmap/${land_without_space}
 
-zip /var/data/garminmaps/UtagawaVTTmap/${land_without_space}/${name_file}${dm}.zip gmapsupp.img
+# zip /var/data/garminmaps/UtagawaVTTmap/${land_without_space}/${name_file}${dm}.zip gmapsupp.img
 
 mv -f gmapsupp.img /var/data/garminmaps/UtagawaVTTmap/${land_without_space}/${name_file}latest.img
+mv -f "MapUtagawa ${land}.exe" /var/data/garminmaps/UtagawaVTTmap/${land_without_space}/MapUtagawa_${land_without_space}_${d%%}.exe
 
 time_task
 
