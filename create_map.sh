@@ -50,7 +50,7 @@ if [ $count != 0 ];then
    rm *.img 
    echo "Split contour ...."
    
-   java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname_courbes}0000 --max-nodes=1600000 --polygon-file=${poly} --keep-complete=false *.osm.gz
+   java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname_courbes}0000 --max-nodes=2000000 --polygon-file=${poly} --keep-complete=false *.osm.gz
 
    mv template.args courbes.args
  
@@ -73,7 +73,7 @@ fi
 if [ ! -f "${mapname}.osm.pbf" ]; then
    echo "***** Split OSM file ...."
 
-   java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname}0000 --max-nodes=1600000 --keep-complete=true --route-rel-values=foot,hiking,bicycle --overlap=0 ${file}
+   java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname}0000 --max-nodes=2000000 --keep-complete=true --route-rel-values=foot,hiking,bicycle --overlap=0 ${file}
 
    mv template.args map.args
 fi
@@ -87,21 +87,24 @@ else
    java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --family-name="MapUtagawa ${land}" --series-name="MapUtagawa ${land} ${d%%}" --description="MapUtagawa (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img
 fi
 
-   echo "***** Create installer ...."
-cp ../style/${type}.typ ./x${type}.typ
-makensis ./osmmap.nsi
-rm x${type}.typ
- 
- 
- rm ${mapname}*.img 
+echo "***** Create installer ...."
+echo "***** Retrieving TYP style file ...."
+cp ../style/${type}.typ ./${type}.typ
+echo "** Change compression method... "
+sed -i 's_SetCompressor /SOLID lzma_SetCompressor /SOLID zlib_g' ./osmmap.nsi
+makensis -V4 ./osmmap.nsi
+
+   echo "***** Cleanup files ...."
+ # rm x${type}.typ
+ # rm ${mapname}*.img 
  rm ${mapname}*.osm.pbf
  rm areas.list
  rm areas.poly
  rm map.args
  rm densities-out.txt
- rm osmmap.img
- rm osmmap.tdb
- rm osmmap.nsi
+ # rm osmmap.img
+ # rm osmmap.tdb
+ # rm osmmap.nsi
  
  rm -f /var/data/garminmaps/UtagawaVTTmap/${land_without_space}/${name_file}*
 

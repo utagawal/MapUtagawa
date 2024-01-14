@@ -52,8 +52,8 @@ def get_hgt(country_name, url_poly):
         if ( os.path.isfile("dem/lidar_europe/"+latitude_export+longitude_export+".hgt")): 
             shutil.copy("dem/lidar_europe/"+latitude_export+longitude_export+".hgt", "dem/"+country_name+"/"+latitude_export+longitude_export+".hgt")
         if ( not os.path.isfile("dem/"+country_name+"/"+latitude_export+longitude_export+".hgt")):   
-            urls.append("https://e4ftl01.cr.usgs.gov//DP133/SRTM/SRTMGL1.003/2000.02.11/"+file)
-
+            urls.append("https://e4ftl01.cr.usgs.gov//DP109/SRTM/SRTMGL1.003/2000.02.11/"+file)
+			
     if(len(urls)>0):
         file_out = open("dem/"+country_name+"/hgt_urls.txt", "wt")
         file_out.write("\n".join(urls)+"\n")

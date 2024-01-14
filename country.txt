@@ -19,3 +19,11 @@ Israel;18;utagawa;https://download.geofabrik.de/asia/israel-and-palestine-latest
 Andorre;19;utagawa;https://download.geofabrik.de/europe/andorra-latest.osm.pbf
 Auvergne;20;utagawa;https://download.geofabrik.de/europe/france/auvergne-latest.osm.pbf
 Baleares;21;utagawa;https://download.geofabrik.de/europe/spain/islas-baleares-latest.osm.pbf
+Guadeloupe;22;utagawa;https://download.geofabrik.de/europe/france/guadeloupe-latest.osm.pbf
+Martinique;23;utagawa;https://download.geofabrik.de/europe/france/martinique-latest.osm.pbf
+Polynesie;24;utagawa;https://download.geofabrik.de/australia-oceania/polynesie-francaise-latest.osm.pbf
+Japon;25;utagawa;https://download.geofabrik.de/asia/japan-latest.osm.pbf
+US-midwest;27;utagawa;https://download.geofabrik.de/north-america/us-midwest-latest.osm.pbf
+US-northeast;28;utagawa;https://download.geofabrik.de/north-america/us-northeast-latest.osm.pbf
+US-south;29;utagawa;https://download.geofabrik.de/north-america/us-south-latest.osm.pbf
+US-west;30;utagawa;https://download.geofabrik.de/north-america/us-west-latest.osm.pbf

@@ -12,6 +12,7 @@ if mplversion < "2.0.0":
 	from matplotlib import _cntr
 else:
 	from matplotlib import _contour
+
 import numpy
 
 from scripts_hgt.varint import bboxStringtypes

@@ -1,22 +1,22 @@
-max-jobs: 8
-road-name-pois
 add-pois-to-areas
-add-pois-to-lines: all
-remove-short-arcs
-precomp-sea=../sea.zip
-x-check-precomp-sea: 0
-style-file=../style/utagawa
-latin1
-net
-route 
-show-profiles: 1
-improve-overview
-dem=../dem,../dem/lidar_europe
+add-pois-to-lines= all
+copyright-message= ©Openstreetmap.org ©UtagawaVTT.com
+dem=../dem/lidar_europe,../dem
 dem-dists=3312,13248,26512,53024,106000,212000,424000,848000 
-dem-interpolation=auto 
+dem-interpolation= auto 
 ignore-turn-restrictions
-preserve-element-order
-min-size-polygon: 4
+improve-overview
+index
+latin1
+max-jobs= 8
 merge-lines
-copyright-message: ©Openstreetmap.org ©UtagawaVTT.com
+min-size-polygon= 4
 nsis
+precomp-sea=../sea.zip
+preserve-element-order
+reduce-point-density=5.4
+reduce-point-density-polygon=5.4
+road-name-pois
+route 
+show-profiles= 1
+style-file=../style/utagawa
