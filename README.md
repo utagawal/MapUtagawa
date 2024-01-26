@@ -31,7 +31,10 @@ python add_country.py NOM_DE_LA_REGION TYPE URL_OSM_GEOFABRIK
 
 exemple pour ajouter la France pour le type rando:
 ```python
-python add_country.py France rando http://download.geofabrik.de/europe/france-latest.osm.pbf
+cd /var/data/garminmaps
+source .venv/bin/activate
+python add_country.py France utagawa http://download.geofabrik.de/europe/france-latest.osm.pbf
+deactivate
 ```
 
 Cette commande permet de récupérer la région, de récupérer les hgt ou d'utiliser les hgt si présent et de générer le fichier qui sera déposé dans  ``~/Documents/Mega/Open_Garmin_Map/``, oui le script est pour mon usage du coup il y a des routes qui me sont utiles vous pouvez modifier le fichier ``create_map.sh`` pour modifier cette route.
