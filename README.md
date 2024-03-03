@@ -1,4 +1,4 @@
-# Création d'une carte Garmin personnalisé 
+# Création d'une carte Garmin personnalisée 
 ## Environnement
 Mes scripts sont utilisé surtout sur MacOsX et testé sur Ubuntu
 
