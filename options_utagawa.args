@@ -1,6 +1,6 @@
 add-pois-to-areas
 add-pois-to-lines= all
-copyright-message= ©Openstreetmap.org ©UtagawaVTT.com
+copyright-message= ©Openstreetmap.org ©UtagawaVTT.com ©Sonny's LiDAR Digital Terrain Models of Europe ©NASADEM
 dem=../dem/lidar_europe,../dem
 dem-dists=3312,13248,26512,53024,106000,212000,424000,848000 
 dem-interpolation= auto 
