@@ -518,9 +518,9 @@ highway = sacscalet4t5t6 [0x12114 resolution 22-23]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes) & bicycle = no & mtb:scale != * & mtb:type != * [0x12116 resolution 22-23]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes | bridge != no | tunnel != no) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * [0x12116 resolution 22-23]
 
-
-# (highway = path | highway = track) & bicycle != yes & bicycle != designated & mtb:scale != * & foot = yes [0x12114 resolution 22]
-# highway = footway & bicycle != yes & mtb:scale != * [0x12114 resolution 24]
+#0x12119 et 0x1211a  Sentiers VTT non praticables à la montée
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & mtb:scale:uphill=5 [0x1211a resolution 24 continue]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & mtb:scale:uphill=5 [0x12119 resolution 22-23]
 
 # Bergwege; T4 - T6 für routing aus Sicherheitsgründen gesperrt; Ausnahme: EXTENDEDROUTING ist explizit definiert
 # Alpine Trails; T4 - T6 expluded from routing for security reasons; Exception: EXTENDEDROUTING set
