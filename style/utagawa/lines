@@ -518,7 +518,7 @@ highway = sacscalet4t5t6 [0x12114 resolution 22-23]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes) & bicycle = no & mtb:scale != * & mtb:type != * [0x12116 resolution 22-23]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes | bridge != no | tunnel != no) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * [0x12116 resolution 22-23]
 
-#0x12119 et 0x1211a  Sentiers VTT non praticables à la montée
+#0x12119 Sentiers VTT non praticables à la montée
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & mtb:scale:uphill=5 [0x1211a resolution 24 continue]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & mtb:scale:uphill=5 [0x12119 resolution 22-23]
 
