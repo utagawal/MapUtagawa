@@ -347,13 +347,18 @@ include "indexsearch"
 # Interdit aux VTT
 # -------------------------------------------------
 highway = sacscalet4t5t6 & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
-(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & mtb:scale!=* & (tracktype=5 | tracktype=6) & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
-(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & ( mtb:scale = 5 | mtb:scale = 6) & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
-(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & bicycle = no & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
-(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
-(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle = no & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
-(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes) & bicycle = no & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
-(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes | bridge != no | tunnel != no) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & mtb:scale!=* & (tracktype=5 | tracktype=6) & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 23-24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & ( mtb:scale = 5 | mtb:scale = 6) & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 23-24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & bicycle = no & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 23-24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 23-24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & (access = no | access = private) & bicycle = no & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 23-24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes) & bicycle = no & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 23-24]
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45 | highway = footway) & (bridge = yes | tunnel = yes | bridge != no | tunnel != no) & (access = no | access = private) & bicycle != yes & bicycle != designated & mtb:scale != * & mtb:type != * & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x04808 resolution 23-24]
+
+# -------------------------------------------------
+# Impraticable à VTT en montée
+# -------------------------------------------------
+(highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & mtb:scale:uphill=5 & (mkgmap:line2poitype=start | mkgmap:line2poitype=mid | mkgmap:line2poitype=end) [0x0480c resolution 23-24]
 
 # ------------------------------------------------------------
 # Tourismus / tourism:
@@ -622,14 +627,14 @@ place = island & name = * [0x0d00 resolution 23]
 place = islet & name = * {name "${name} (Ile/Ilot)"} [0x6600 resolution 24]
 
 # Isolated_dwelling: Smallest rural settlement, smaller than a hamlet, usually just one house. [point, closedway]
-place = isolated_dwelling & name = * {name "${name} (Maison isolée)"} [0x6600 resolution 24]
+place = isolated_dwelling & name = * {name "${name} (Lieu dit)"} [0x6600 resolution 24]
 
 # Ortsbezeichnung ohne Bezug auf Bevölkerung (z.B. "Wiesengrund", "Deutsches Eck"). [point, closedway]
-#-# place = locality & name = * {name "${name} (Ortsbezeichnung)"} [0x6600 resolution 24]
-place = locality & name = * & ele = * {name "${name} (${ele}) (Localité)"} [0x6600 resolution 23]
-place = locality & name = *           {name "${name} (Localité)"}          [0x6600 resolution 23]
-place = locality & ele = *            {name "N.N. (${ele}) (Localité)"}    [0x6600 resolution 23]
-place = locality                      {name "N.N. (Localité)"}             [0x6600 resolution 23]
+#-# place = locality & name = * {name "${name} (nom du lieu)"} [0x6600 resolution 24]
+place = locality & name = * & ele = * {name "${name} (${ele}) (Lieu)"} [0x6600 resolution 24]
+place = locality & name = *           {name "${name} (Lieu)"}          [0x6600 resolution 24]
+place = locality & ele = *            {name "N.N. (${ele}) (Lieu)"}    [0x6600 resolution 24]
+place = locality                      {name "N.N. (Lieu)"}             [0x6600 resolution 24]
 
 # Stadtteil, Stadtviertel. [point, closedway]
 place = suburb [0x0b00 resolution 21]
