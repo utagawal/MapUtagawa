@@ -496,10 +496,12 @@ highway = bridleway {add motorcar = no; add bicycle = no; add foot = no}
 highway = footway | highway = elevator | highway = steps | highway = pedestrian {add motorcar = no; add bicycle = no}
 
 # Re-Format unauthorized MTB stuff
-mtb = designated {set bicycle = designated; delete mtb}
+# mtb = designated {set bicycle = designated;}
+# mtb = yes {set bicycle = yes; delete mtb}
+mtb = designated {set bicycle = designated;}
 mtb = yes {set bicycle = yes; delete mtb}
 
-#0x12114 Sentiers VTT non praticables ou interdits
+#0x12114 Forbidden or unridable MTB tracks
 highway = sacscalet4t5t6 [0x12114 resolution 24 continue]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & mtb:scale!=* & (tracktype=5 | tracktype=6) [0x12114 resolution 24 continue]
 (highway = bridleway | highway = path | highway = track | highway = feldweg1 | highway = feldweg023 | highway = feldweg45) & ( mtb:scale = 5 | mtb:scale = 6) [0x12114 resolution 24 continue]
@@ -1043,10 +1045,7 @@ highway = living_street & (area != * | area = no) [0x010f04 resolution 21-22]
 # Beginn MTB / Fahrrad / Fuss / Wald / Berg / etc. Wege
 #======================================================================================
 
-# 0x12115 routes balisés VTT
-highway=* & (c_route_mtb = yes | route=mtb | extremecarver=mr) & (c_route_hiking = no | c_route_hiking != *) {name '${name}' | '${ref}'} [0x12115 resolution 22]
-
-## MTB naming Section
+# MTB naming Section
 mbt:scale=* {add mtb:scale = '${mbt:scale}'}
 mtb_scale=* {add mtb:scale = '${mtb_scale}'}
 
@@ -1300,13 +1299,13 @@ mtb:scale!=* & sac_scale!=* & tracktype!=* & winter_road=yes {add tracktype=2}
 sac_scale=hiking & tracktype<2 {delete sac_scale}
 
 sac_scale=mountain_hiking & tracktypeadded!=yes & tracktype<3 	{delete sac_scale}
-sac_scale=mountain_hiking & mtb:scale<1  						{delete sac_scale; set tracktypeadded=reversed}
+sac_scale=mountain_hiking & mtb:scale<1  			{delete sac_scale; set tracktypeadded=reversed}
 
 sac_scale=demanding_mountain_hiking & tracktypeadded!=yes & tracktype<4 {delete sac_scale}
-sac_scale=demanding_mountain_hiking & mtb:scale<2 						{delete sac_scale; set tracktypeadded=reversed}
+sac_scale=demanding_mountain_hiking & mtb:scale<2 			{delete sac_scale; set tracktypeadded=reversed}
 
 ( sac:scale=alpine_hiking | sac_scale=demanding_alpine_hiking | sac_scale=difficult_alpine_hiking ) & tracktypeadded!=yes & tracktype<5 	{delete sac_scale}
-( sac:scale=alpine_hiking ) 																		& tracktype<3 							{delete sac_scale; set tracktypeadded=reversed}
+( sac:scale=alpine_hiking )                                                                                               & tracktype<3           {delete sac_scale; set tracktypeadded=reversed}
 ( sac:scale=alpine_hiking | sac_scale=demanding_alpine_hiking | sac_scale=difficult_alpine_hiking ) & ( mtb:scale<3 | mtb:scale:uphill<4) 	{delete sac_scale; set tracktypeadded=reversed}
 
 
@@ -1314,7 +1313,6 @@ sac_scale=demanding_mountain_hiking & mtb:scale<2 						{delete sac_scale; set t
 ( mtb:scale=0 | mtb:scale="0-" ) & ( tracktype=1 | smoothness=excellent | smoothness=very_good | smoothness=good | smoothness=intermediate | surface=asphalt | surface=concrete ) {delete mtb:scale}
 mtb:scale=0 & ( tracktype=2 | tracktype=3 |  smoothness=bad | smoothness=very_bad | surface=gravel ) {set mtb:scale="0-"}
 mtb:scale=0 & ( tracktype=5 | smoothness=very_horrible | smoothness=impassable ){set mtb:scale="0+"}
-
 
 
 # Add mtb:scale(:uphill) to name
@@ -1410,19 +1408,41 @@ mtb:scale="0-" {set mtb:scale=0; set mtb:scale:0easy=yes}
 # Display MTB tracks Name
 (highway = bridleway | highway = path | highway = track | highway = radweg | highway = radfussweg) & (mtb:scale != * | name:mtb=* | mtb:name=* | name_mtb=* | mtb_name=*) {name '${name}'}
 
+# 0x12115 MTB routes
+highway=* & (c_route_mtb = yes | route=mtb | extremecarver=mr | mtb=designated) {name '${name}' | '${ref}';}  [0x10f07 resolution 22 continue]
+
+# Highlight MTB tracks
+(highway = bridleway | highway = path | highway = track | highway = radweg | highway = radfussweg) & (mtb:scale != * | name:mtb=* | mtb:name=* | name_mtb=* | mtb_name=*) & (mtb=designated) {name '${name}'} [0x10f07 resolution 22-24 continue]
+(highway = bridleway | highway = path | highway = track | highway = radweg | highway = radfussweg) & (mtb:scale != * | name:mtb=* | mtb:name=* | name_mtb=* | mtb_name=*) & (bicycle=designated) & (foot=no) {name '${name}'} [0x10f07 resolution 22-24 continue]
+
+# ---------------------------------
+# MTB tracks in Trailcenters
+# ---------------------------------
+# Other MTB Pistes (DH/Enduro) without difficulty specified
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (bicycle=designated | mtb=designated) {name '${name}'} [0x12004 resolution 22 continue]
+#Green
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (bicycle=designated | mtb=designated) & (mtb:scale = 0 | mtb:scale:imba = 1) {name '${name}'} [0x12000 resolution 22]
+# Blue
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (bicycle=designated | mtb=designated) & (mtb:scale = 1 | mtb:scale:imba = 2) {name '${name}'} [0x12001 resolution 22]
+#Red
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (bicycle=designated | mtb=designated) & (mtb:scale = 2 | mtb:scale:imba = 3) {name '${name}'} [0x12002 resolution 22]
+# Black
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (bicycle=designated | mtb=designated) & (mtb:scale >= 3 | mtb:scale:imba >= 4) {name '${name}'} [0x12003 resolution 22]
+
 # ---------------------------------
 # Downhill/Enduro MTB tracks in Bikeparks
 # ---------------------------------
+# MTB DH Tracks (DH/Enduro) without difficulty specified
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated | mtb=designated) {name '${name}'} [0x12004 resolution 22 continue]
 #Green
-( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated) & (mtb:scale = 0 | mtb:scale:imba = 1) {name '${name}'} [0x12000 resolution 22]
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated | mtb=designated) & (mtb:scale = 0 | mtb:scale:imba = 1) {name '${name}'} [0x12000 resolution 22]
 # Blue
-( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated) & (mtb:scale = 1 | mtb:scale:imba = 2) {name '${name}'} [0x12001 resolution 22]
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated | mtb=designated) & (mtb:scale = 1 | mtb:scale:imba = 2) {name '${name}'} [0x12001 resolution 22]
 #Red
-( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated) & (mtb:scale = 2 | mtb:scale:imba = 3) {name '${name}'} [0x12002 resolution 22]
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated | mtb=designated) & (mtb:scale = 2 | mtb:scale:imba = 3) {name '${name}'} [0x12002 resolution 22]
 # Black
-( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated) & (mtb:scale >= 3 | mtb:scale:imba >= 4) {name '${name}'} [0x12003 resolution 22]
-# Other MTB Pistes (DH/Enduro) without difficulty specified
-( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated) {name '${name}'} [0x12004 resolution 22]
+( highway=path | highway=footway | highway=cycleway | highway=bridleway | highway=track | highway=unsurfaced | highway=road | highway=byway | highway=unclassified | highway=service ) & (mtb:type=downhill | mtb:type=enduro) & (bicycle=yes | bicycle=designated | mtb=designated) & (mtb:scale >= 3 | mtb:scale:imba >= 4) {name '${name}'} [0x12003 resolution 22]
+
 
 # Ausgeschilderte, kombinierte Rad- und Fusswege:
 # -----------------------------------------------

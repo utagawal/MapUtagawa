@@ -1,0 +1,43 @@
+# ---------------------------------
+# MTB tracks in MTB Trail centers
+# ---------------------------------
+
+type=route & route=mtb & colour=green
+	{
+		apply {
+		    add mtb=designated;
+                    add mtb:scale=0;
+                }
+	} 
+	
+type=route & route=mtb & colour=blue
+	{
+		apply {
+		    add mtb=designated;
+                    add mtb:scale=1;
+                }
+	} 
+
+type=route & route=mtb & colour=red
+	{
+		apply {
+		    add mtb=designated;
+                    add mtb:scale=2;
+                }
+	} 
+
+
+type=route & route=mtb & colour=black
+	{
+		apply {
+		    add mtb=designated;
+                    add mtb:scale=3;
+                }
+	} 
+
+type=route & route=mtb
+	{
+		apply {
+		    add mtb=designated;
+                }
+	}
