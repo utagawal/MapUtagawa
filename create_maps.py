@@ -8,17 +8,18 @@ import time
 from multiprocessing import Pool
 
 
-def task(country):
-    country_name=country[0].replace("#",'')
+def createMap(country):
+    country_name=country[0]
     id=country[1]
     style=country[2]
     url=country[3]
-    #if(not country_name.startswith('#')):
-    print("Update "+country_name+ " "+id+" "+style+" "+url)
-    #Launch script
-    subprocess.run(["bash", "download_osm.sh",country_name,id,style,url])
+    if(not country_name.startswith('#')):
+        print("Update "+country_name+ " "+id+" "+style+" "+url)
+        #Launch script
+        subprocess.run(["bash", "create_map.sh",country_name,id,style])
 
 if __name__ == '__main__':
+
     country_list=[]
 
     #File country
@@ -31,8 +32,6 @@ if __name__ == '__main__':
 
     file_in.close()
 
-    with Pool() as pool:
-        pool.map(task, country_list)
-                
-
-
+    with Pool(processes=3) as pool:
+        # call the function for each item in parallel
+        pool.map(createMap, country_list)

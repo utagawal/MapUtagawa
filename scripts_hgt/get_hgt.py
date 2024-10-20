@@ -15,12 +15,12 @@ def get_hgt(country_name, url_poly):
     file = urllib.request.urlopen(url_poly)
     polygon = file.read().decode('utf8')
     for line in polygon.splitlines():
-        if(line=='END') :
-            break
-        if(line!='none' and line!='1'):
-            split = line.split("   ")
-            longitude_string = split[1]
-            latitude_string = split[2]
+        if(line!='none' and line!='1' and line!='END' and (line.startswith("   ") or line.startswith("\t"))):
+            splitString = line.split("   ")
+            if(len(splitString)==1):
+                splitString = splitString[0].split("\t")    
+            longitude_string = splitString[1]
+            latitude_string = splitString[2]
             
             point_list.append(Point(float(longitude_string),float(latitude_string)))
             
@@ -53,7 +53,7 @@ def get_hgt(country_name, url_poly):
             shutil.copy("dem/lidar_europe/"+latitude_export+longitude_export+".hgt", "dem/"+country_name+"/"+latitude_export+longitude_export+".hgt")
         if ( not os.path.isfile("dem/"+country_name+"/"+latitude_export+longitude_export+".hgt")):   
             urls.append("https://e4ftl01.cr.usgs.gov//DP109/SRTM/SRTMGL1.003/2000.02.11/"+file)
-			
+
     if(len(urls)>0):
         file_out = open("dem/"+country_name+"/hgt_urls.txt", "wt")
         file_out.write("\n".join(urls)+"\n")

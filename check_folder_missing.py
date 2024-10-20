@@ -27,15 +27,9 @@ for idx, country in enumerate(country_list):
     style=country[2]
     url=country[3]
     country_dir =  "carte_"+country_name.replace(' ','_').lower()
-    for file in pathlib.Path(country_dir).glob("*.img"):
-        if(str(file).split("/")[1].startswith("55"+id)):
-            hasFilesDemWithId=True
-        if(str(file).split("/")[1].startswith("55")):
-            hasFilesDem=True    
-    if(hasFilesDem==False):
-        print("Fichier "+country_name+ " "+id+" n'a pas de dem")
-    if(hasFilesDem==True and hasFilesDemWithId==False):
-        print("Fichier "+country_name+ " "+id+" n'a pas de dem avec le bon id")
+    isDir = os.path.isdir(country_dir)
+    if(isDir==False):
+        print("Dir "+country_name+" missing")
 
 
 

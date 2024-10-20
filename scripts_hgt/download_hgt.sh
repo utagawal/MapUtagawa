@@ -26,7 +26,7 @@ while read -r line;do
 
 filename="$(dirname "${1}")/${line##*/}"
 echo $line
-curl -f -b "$cookiejar" -c "$cookiejar" -L --netrc-file "$netrc" -g -o $filename -- $line
+curl -L -f -b "$cookiejar" -c "$cookiejar" -L --netrc-file "$netrc" -g -o $filename -- $line
 unzip $filename -d $(dirname "${1}")
 rm $filename
 done < $1;

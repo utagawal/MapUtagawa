@@ -1,5 +1,5 @@
 # adjust to latest version (see www.mkgmap.org.uk)
-MKGMAP="mkgmap-r4836" 
+MKGMAP="mkgmap-r4922" 
 SPLITTER="splitter-r645"
 
 if [[ $OSTYPE == 'linux'* ]]; then
@@ -7,7 +7,7 @@ if [[ $OSTYPE == 'linux'* ]]; then
     sudo apt upgrade
     sudo apt install curl
     sudo apt install python3-pip
-    sudo apt install openjdk-13-jre-headless
+    sudo apt install openjdk-17-jre-headless
     sudo apt install unzip
 fi
 

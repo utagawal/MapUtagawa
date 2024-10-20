@@ -2,33 +2,33 @@
 import sys
 import os
 import subprocess
+from get_contours import get_contours
 import os, shutil, fnmatch
 import subprocess
 import time
+import pathlib
 from multiprocessing import Pool
 
-def download(country):
-    country_name=country[0]
+def task(country):
+    hasFiles=False
+    country_name=country[0].replace("#",'')
     id=country[1]
     style=country[2]
     url=country[3]
-    if(not country_name.startswith('#')):
+    country_dir =  "carte_"+country_name.replace(' ','_').lower()
+    for file in pathlib.Path(country_dir).glob("*.img"):
+        if(str(file).split("/")[1].startswith("55")):
+            hasFiles=True
+    if(hasFiles==False):
+        #Get contours
         print("Update "+country_name+ " "+id+" "+style+" "+url)
+        get_contours(country_name, url)
         #Launch script
         subprocess.run(["bash", "download_osm.sh",country_name,id,style,url])
-
-def createMap(country):
-    country_name=country[0]
-    id=country[1]
-    style=country[2]
-    url=country[3]
-    if(not country_name.startswith('#')):
-        print("Update "+country_name+ " "+id+" "+style+" "+url)
-        #Launch script
         subprocess.run(["bash", "create_map.sh",country_name,id,style])
 
+        
 if __name__ == '__main__':
-
     country_list=[]
 
     #File country
@@ -41,8 +41,6 @@ if __name__ == '__main__':
 
     file_in.close()
 
-    with Pool(processes=1) as pool:
-        pool.map(download, country_list)
-
     with Pool(processes=3) as pool:
-        pool.map(createMap, country_list)
+        pool.map(task, country_list)
+
