@@ -65,10 +65,10 @@ if [ $count != 0 ];then
       echo "##########################################################"  
       
       #faire un for sur tout les fichiers 
-      java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname_courbes}${index} --max-nodes=1000000 --polygon-file=${poly} --keep-complete=false $file_courbe
+      java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname_courbes}${index} --max-nodes=1200000 --polygon-file=${poly} --keep-complete=false $file_courbe
 
       if [ ! -f "${mapname_courbes}000.osm.pbf" ]; then
-         java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname_courbes}${index} --max-nodes=1000000 --keep-complete=false $file_courbe
+         java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname_courbes}${index} --max-nodes=1200000 --keep-complete=false $file_courbe
       fi
       
       mv template.args courbes.args
@@ -100,7 +100,7 @@ if [ ! -f "${mapname}.osm.pbf" ]; then
    echo "########       Splitting OSM file       ########"
    echo "################################################"
 
-   java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname}000 --max-nodes=1000000 --keep-complete=true --route-rel-values=foot,hiking,bicycle --overlap=0 ${file}
+   java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname}000 --max-nodes=1200000 --keep-complete=true --route-rel-values=foot,hiking,bicycle --overlap=0 ${file}
 
    mv template.args map.args
 fi
@@ -128,10 +128,9 @@ echo "** Change compression method... "
 sed -i 's_SetCompressor /SOLID lzma_SetCompressor /SOLID zlib_g' ./osmmap.nsi
 makensis -V4 ./osmmap.nsi
 
-echo "***** Cleaning up files ******"
-# rm x${type}.typ
-
-
+echo "################################################"
+echo "########    Cleaning files              ########"
+echo "################################################"
 rm ${mapname}*.img 
 rm ${mapname}*.osm.pbf
 rm areas.list
@@ -142,6 +141,7 @@ rm osmmap.img
 rm osmmap.tdb
 rm osmmap.nsi
 rm -f /var/data/garminmaps/UtagawaVTTmap/${land_without_space}/${name_file}*
+rm x${type}.typ
 
 dm=`date "+%Y_%m_%d"`
 
