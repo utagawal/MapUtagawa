@@ -42,8 +42,8 @@ type_upper="$(tr '[:lower:]' '[:upper:]' <<< ${type:0:1})${type:1}"
 cd "carte_$land_lower"
 
 name="Map${type_upper} ${land} ${d%%}"
-mapname="77$id"
-mapname_courbes="88$id"
+mapname="45$id"
+mapname_courbes="56$id"
 name_file=Map${type_upper}_${land_without_space}_
 
 count=`ls -1 *.osm.gz 2>/dev/null | wc -l`
@@ -100,7 +100,7 @@ if [ ! -f "${mapname}.osm.pbf" ]; then
    echo "########       Splitting OSM file       ########"
    echo "################################################"
 
-   java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname}0000 --max-nodes=1000000 --keep-complete=true --route-rel-values=foot,hiking,bicycle --overlap=0 ${file}
+   java -Xmx16384m -jar ../splitter/splitter.jar --mapid=${mapname}000 --max-nodes=1000000 --keep-complete=true --route-rel-values=foot,hiking,bicycle --overlap=0 ${file}
 
    mv template.args map.args
 fi
@@ -108,14 +108,17 @@ fi
    echo "################################################"
    echo "########    Compiling Garmin image      ########"
    echo "################################################"
+
 java -Xmx16384m -jar ../mkgmap/mkgmap.jar -c ../options_${type}.args -c map.args
 
-if [ -f "0${mapname_courbes}000.img" ]; then
-   echo "####### Contour found"
-   java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --family-name="MapUtagawa ${land}" --series-name="MapUtagawa ${land} ${d%%}" --description="MapUtagawa (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img 0${mapname_courbes}*.img
+if [ -f "${mapname_courbes}000.img" ]; then
+   echo "####### Contour found ####### "
+   java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}000 --family-id=${mapname} --family-name="MapUtagawa ${land}" --series-name="MapUtagawa ${land} ${d%%}" --description="MapUtagawa (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img ${mapname_courbes}*.img
 else
-   echo "####### Contour not found"
-   java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}0000 --family-id=${mapname} --family-name="MapUtagawa ${land}" --series-name="MapUtagawa ${land} ${d%%}" --description="MapUtagawa (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img
+   echo "<!><!><!><!><!><!><!><!><!><!><!><!><!><!><!><!><!>"
+   echo "<!><!><!><!><!>  Contour not found  <!><!><!><!><!>"
+   echo "<!><!><!><!><!><!><!><!><!><!><!><!><!><!><!><!><!>"
+   java -Xmx16384m -jar ../mkgmap/mkgmap.jar --mapname=${mapname}000 --family-id=${mapname} --family-name="MapUtagawa ${land}" --series-name="MapUtagawa ${land} ${d%%}" --description="MapUtagawa (${name})" -c ../options_${type}.args --gmapsupp ../style/${type}.typ ${mapname}*.img
 fi
 
 echo "***** Creating installer ...."
@@ -128,9 +131,7 @@ makensis -V4 ./osmmap.nsi
 echo "***** Cleaning up files ******"
 # rm x${type}.typ
 
-rm osmmap.img
-rm osmmap.tdb
-rm osmmap.nsi
+
 rm ${mapname}*.img 
 rm ${mapname}*.osm.pbf
 rm areas.list
@@ -139,6 +140,7 @@ rm map.args
 rm densities-out.txt
 rm osmmap.img
 rm osmmap.tdb
+rm osmmap.nsi
 rm -f /var/data/garminmaps/UtagawaVTTmap/${land_without_space}/${name_file}*
 
 dm=`date "+%Y_%m_%d"`
