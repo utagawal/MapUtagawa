@@ -1,22 +1,25 @@
 add-pois-to-areas
-add-pois-to-lines= mid
-copyright-message= ©Openstreetmap.org ©UtagawaVTT.com ©Sonny's LiDAR Digital Terrain Models of Europe ©NASADEM
+add-pois-to-lines=mid
+copyright-message=©Openstreetmap.org ©UtagawaVTT.com ©Sonny's LiDAR Digital Terrain Models of Europe ©NASADEM
+cycle-map
 dem=../dem/lidar_europe,../dem
-dem-dists=3312,13248,26512,53024,106000,212000,424000,848000 
-dem-interpolation= auto 
+dem-dists=3312,13248,26512,53024,106000,212000,424000,848000
+dem-interpolation=auto
+draw-priority=28
 ignore-turn-restrictions
 improve-overview
 index
 latin1
-max-jobs= 8
+max-jobs=4
 merge-lines
-min-size-polygon= 4
-nsis
+min-size-polygon=4
+overview-dem-dist=88368
 precomp-sea=../sea.zip
 preserve-element-order
 reduce-point-density=5.4
 reduce-point-density-polygon=5.4
+remove-ovm-work-files
 road-name-pois
-route 
-show-profiles= 1
+route
+show-profiles=1
 style-file=../style/utagawa

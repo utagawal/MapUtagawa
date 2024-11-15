@@ -30,6 +30,7 @@ for idx, country in enumerate(country_list):
     isDir = os.path.isdir(country_dir)
     if(isDir==False):
         print("Dir "+country_name+" missing")
-
-
-
+        country_name_lower_case = country_name.lower().replace(" ", "_").replace(" ", "_")
+        print("Creating "+country_name_lower_case+" ...")		
+        os.makedirs("dem/"+country_name_lower_case, exist_ok=True)
+        os.makedirs("carte_"+country_name_lower_case, exist_ok=True)

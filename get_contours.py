@@ -54,8 +54,8 @@ def get_contours(country_name, url):
             # Prepare arguments for parallel processing
             args = [(shp_file, script_path) for shp_file in shp_files]
             
-            # Process files in parallel using 8 CPUs
-            with Pool(processes=8) as pool:
+            # Process files in parallel using 4 CPUs
+            with Pool(processes=4) as pool:
                 pool.map(process_shp_file, args)
 
         # Move generated files

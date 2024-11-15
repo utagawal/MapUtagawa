@@ -3,7 +3,7 @@ import sys
 import os
 import subprocess
 from scripts_hgt.get_hgt import get_hgt
-from get_contours import get_contours
+from get_contours_sequential import get_contours
 import os, shutil, fnmatch
 import subprocess
 import time
@@ -21,7 +21,7 @@ def task(country):
         country_dir =  "carte_"+country_name.replace(' ','_').lower()
         hasFiles=False
         for file in pathlib.Path(country_dir).glob("*.img"):
-            if(str(file).split("/")[1].startswith("55")):
+            if(str(file).split("/")[1].startswith("9")):
                 hasFiles=True
         if(hasFiles==False):
             #Get contours
@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
     file_in.close()
 
-    with Pool(processes=3) as pool:
+    with Pool(processes=1) as pool:
         # call the function for each item in parallel
         pool.map(task, country_list)
 

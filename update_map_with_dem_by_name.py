@@ -26,9 +26,9 @@ for idx, country in enumerate(country_list):
     country_name=country[0].replace('#','')
     id=country[1]
     style=country[2]
-    url=country[3]
+    url = str(country[3]).strip()  # Convertit en chaîne et supprime les espaces en trop
     if(country_name==country_name_args):
-        print("Update "+country_name+ " "+id+" "+style+" "+url)
+        print(f"Update {country_name}, ID={id}, Style={style}, URL={url}")
         #Get contours
         get_contours(country_name, url)
         #Launch script

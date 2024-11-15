@@ -1,5 +1,4 @@
 latin1
-max-jobs: 8
 min-size-polygon=8
 polygon-size-limits=24:12, 18:10, 16:8, 14:4, 12:2, 11:0
 style-file=../style/utagawa

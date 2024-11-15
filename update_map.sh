@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Update of the map $1 ...."
+echo "Update of map $1 ...."
 
 land=$1
 id=$2
@@ -14,8 +14,10 @@ file_poly="$land_lower".poly
 
 cd "carte_$land_lower"
 
+echo "#### Downloading latest OSM .pbf file ...."
 curl -L -o $file $url
 
+echo "#### Downloading latest OSM .poly file ...."
 curl -L -o $file_poly $url_poly
 
 cd ..

@@ -18,7 +18,7 @@ def task(country):
     print("Update "+country_name+ " "+id+" "+style+" "+url)
     country_dir =  "carte_"+country_name.replace(' ','_').lower()
     for file in pathlib.Path(country_dir).glob("*.img"):
-        if(str(file).split("/")[1].startswith("55")):
+        if(str(file).split("/")[1].startswith("9")):
             hasFiles=True
     if(hasFiles==False):
         #Get contours
