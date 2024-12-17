@@ -41,8 +41,8 @@ if __name__ == '__main__':
 
     file_in.close()
 
-    with Pool(processes=1) as pool:
+    with Pool(processes=4) as pool:
         pool.map(download, country_list)
 
-    with Pool(processes=3) as pool:
+    with Pool(processes=2) as pool:
         pool.map(createMap, country_list)

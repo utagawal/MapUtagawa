@@ -24,7 +24,7 @@ def task(country):
         #Get contours
         get_contours(country_name, url)
     #Launch script
-    #subprocess.run(["bash", "download_osm.sh",country_name,id,style,url])
+    subprocess.run(["bash", "download_osm.sh",country_name,id,style,url])
     subprocess.run(["bash", "create_map.sh",country_name,id,style])
 
 
@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
     file_in.close()
 
-    with Pool(processes=3) as pool:
+    with Pool(processes=1) as pool:
         # call the function for each item in parallel
         pool.map(task, country_list)
 
