@@ -2232,13 +2232,13 @@ barrier = hedge_bank [ 0x012111 resolution 24 ]
 # 0x21 = 1 (Label, SmallFont)
 # 0x22 = 2 (Label, SmallFont)
 
-  contour = elevation & contour_ext = elevation_minor  & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 24]
+  contour = elevation & contour_ext = elevation_minor  & ele > 0 { name '${ele|conv:m=>ft}' } [0x20 resolution 24]
   
-  contour = elevation & contour_ext = elevation_medium & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x21 resolution 24 continue with_actions]
-  contour = elevation & contour_ext = elevation_medium & ele > 0 { set name = '${ele|conv:m=>ft}'; } [0x20 resolution 22-23]
+  contour = elevation & contour_ext = elevation_medium & ele > 0 { name '${ele|conv:m=>ft}' } [0x21 resolution 24 continue with_actions]
+  contour = elevation & contour_ext = elevation_medium & ele > 0 { name '${ele|conv:m=>ft}' } [0x20 resolution 22-23]
   
-  contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${ele|conv:m=>ft}';} [0x22 resolution 22 continue with_actions]
-  contour = elevation & contour_ext = elevation_major  & ele > 0 { set name = '${ele|conv:m=>ft}';} [0x20 resolution 20-21]
+  contour = elevation & contour_ext = elevation_major  & ele > 0 { name '${ele|conv:m=>ft}' } [0x22 resolution 22 continue with_actions]
+  contour = elevation & contour_ext = elevation_major  & ele > 0 { name '${ele|conv:m=>ft}' } [0x20 resolution 20-21]
 
 # Needed Include Lines for making
 # old mkgmap styles (pre r2906)
@@ -2249,9 +2249,9 @@ barrier = hedge_bank [ 0x012111 resolution 24 ]
 # deactivated: include 'roadspeed';
 
 
-# name=* { name '${name}' }
-# mkgmap:default_name=* { name '${mkgmap:default_name}' }
-# mkgmap:display_name=* { addlabel '${mkgmap:display_name|subst:;=>/}' }
+name=* { name '${name}' }
+mkgmap:default_name=* { name '${mkgmap:default_name}' }
+mkgmap:display_name=* { addlabel '${mkgmap:display_name|subst:;=>/}' }
 
 mkgmap:label:1!=* & ref=* { addlabel '${ref|part:;:1}' }
 mkgmap:label:1!=* & int_ref=* { addlabel '${int_ref|part:;:1}' }
