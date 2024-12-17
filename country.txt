@@ -43,9 +43,9 @@ Pays-bas;016;utagawa;https://download.geofabrik.de/europe/netherlands-latest.osm
 Portugal;017;utagawa;https://download.geofabrik.de/europe/portugal-latest.osm.pbf
 Royaume-Uni;031;utagawa;https://download.geofabrik.de/europe/united-kingdom-latest.osm.pbf
 Seychelles;033;utagawa;https://download.geofabrik.de/africa/seychelles-latest.osm.pbf
+Slovenie;051;utagawa;https://download.geofabrik.de/europe/slovenia-latest.osm.pbf
 Suisse;003;utagawa;https://download.geofabrik.de/europe/switzerland-latest.osm.pbf
 US-midwest;027;utagawa;https://download.geofabrik.de/north-america/us-midwest-latest.osm.pbf
 US-northeast;028;utagawa;https://download.geofabrik.de/north-america/us-northeast-latest.osm.pbf
 US-south;029;utagawa;https://download.geofabrik.de/north-america/us-south-latest.osm.pbf
 US-west;030;utagawa;https://download.geofabrik.de/north-america/us-west-latest.osm.pbf
-Slovenie;051;utagawa;https://download.geofabrik.de/europe/slovenia-latest.osm.pbf
